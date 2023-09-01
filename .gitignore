@@ -1,4 +1,5 @@
 db.json
+.env
 
 # Logs
 logs
@@ -27,3 +28,4 @@ dist-ssr
 
 # Local Netlify folder
 .netlify
+netlify.toml
