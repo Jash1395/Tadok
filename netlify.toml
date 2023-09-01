@@ -1,0 +1,7 @@
+[dev]
+  targetPort = 3001
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
