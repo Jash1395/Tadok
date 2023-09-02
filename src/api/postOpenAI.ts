@@ -1,8 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
-
 import { api } from './api'
+import { verifyJSON } from '../utils/verifyJSON'
+import { formatSentenceArray } from '../utils/formatSentenceArray'
 
-export async function postOpenAI() {
+export async function postOpenAI(
+    questionLang: lang,
+    answerLang: lang
+): Promise<Sentence[] | null> {
     const URL = '/api/openAI'
     const body = {
         key1: 'value1',
@@ -11,8 +15,13 @@ export async function postOpenAI() {
 
     try {
         const response: AxiosResponse = await api.post(URL, body)
-        console.log(response.data.message)
-        return response
+        const data = JSON.parse(response.data.message)
+
+        if (verifyJSON(data, questionLang, answerLang)) {
+            const formattedData = formatSentenceArray(data.sentences)
+            return formattedData
+        }
+        return null
     } catch (error: any) {
         if (axios.isAxiosError(error)) {
             if (error.response) {

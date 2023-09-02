@@ -25,20 +25,21 @@ interface Props {
 }
 
 export const Reader = ({ level }: Props) => {
-    const [sentenceList, setSentenceList] = useState<sentence[]>()
+    const [sentenceList, setSentenceList] = useState<Sentence[]>()
     const [showAnswer, setShowAnswer] = useState<Boolean>(false)
     const [loading, setLoading] = useState<Boolean>(true)
     const [error, setError] = useState<any>(null)
 
     useEffect(() => {
         const fetchSentences = async (level: level) => {
-            console.log(level)
             try {
-                const response = await postOpenAI()
-                const data = response.data
-                // console.log(data)
-
-                setSentenceList(data)
+                const response = await postOpenAI('korean', 'english')
+                if (!response) {
+                    console.error('Failed to fetch sentences.')
+                    return
+                }
+                console.log(response)
+                setSentenceList(response)
                 setLoading(false)
             } catch (error) {
                 console.error('Error:', error)

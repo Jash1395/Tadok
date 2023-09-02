@@ -56,7 +56,7 @@ const EasyButton = styled(DifficultyButton)`
     }
 `
 interface Props {
-    currentSentence: sentence | undefined
+    currentSentence: Sentence | undefined
     showAnswer: Boolean
     toggleShowAnswer: () => void
     getNextSentence: () => void
