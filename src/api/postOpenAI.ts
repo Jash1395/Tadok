@@ -10,7 +10,8 @@ export async function postOpenAI() {
     }
 
     try {
-        const response: AxiosResponse<sentence[]> = await api.post(URL, body)
+        const response: AxiosResponse = await api.post(URL, body)
+        console.log(response.data.message)
         return response
     } catch (error: any) {
         if (axios.isAxiosError(error)) {

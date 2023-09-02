@@ -36,7 +36,7 @@ export const Reader = ({ level }: Props) => {
             try {
                 const response = await postOpenAI()
                 const data = response.data
-                console.log(data)
+                // console.log(data)
 
                 setSentenceList(data)
                 setLoading(false)
