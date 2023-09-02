@@ -31,7 +31,7 @@ export const Reader = ({ level }: Props) => {
     const [error, setError] = useState<any>(null)
 
     useEffect(() => {
-        if (sentenceList.length < 2) {
+        if (sentenceList.length < 5) {
             fetchSentences(level)
         }
 
