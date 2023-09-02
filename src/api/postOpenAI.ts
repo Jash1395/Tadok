@@ -4,17 +4,18 @@ import { verifyJSON } from '../utils/verifyJSON'
 import { formatSentenceArray } from '../utils/formatSentenceArray'
 
 export async function postOpenAI(
+    level: level,
     questionLang: lang,
     answerLang: lang
 ): Promise<Sentence[] | null> {
-    const URL = '/api/openAI'
-    const body = {
-        key1: 'value1',
-        key2: 'value2',
+    const baseURL = '/api/openAI?'
+    const queryParams = {
+        level: level,
     }
+    const params = new URLSearchParams(queryParams).toString()
 
     try {
-        const response: AxiosResponse = await api.post(URL, body)
+        const response: AxiosResponse = await api.get(baseURL + params)
         const data = JSON.parse(response.data.message)
 
         if (verifyJSON(data, questionLang, answerLang)) {

@@ -45,7 +45,7 @@ export const Reader = ({ level }: Props) => {
     const fetchSentences = async (level: level) => {
         console.log(level)
         try {
-            const sentences = await postOpenAI('korean', 'english')
+            const sentences = await postOpenAI(level, 'korean', 'english')
             if (!sentences) {
                 console.error('Failed to fetch sentences.')
                 return

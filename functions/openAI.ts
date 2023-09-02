@@ -7,8 +7,15 @@ const openAI = new OpenAI({
     apiKey: `${process.env.OPENAI}`,
 })
 
-export const handler: Handler = async (event, context) => {
+export const handler: Handler = async (event) => {
     try {
+        const level = event.queryStringParameters?.level as level
+
+        if (!level || !['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].includes(level)) {
+            throw Error('No level specified')
+        }
+
+        const user = buildPrompt(level)
         const startTime = performance.now()
 
         // call to openAI
@@ -29,8 +36,6 @@ export const handler: Handler = async (event, context) => {
             `[Generated in ${seconds}s][${chatCompletion.usage?.total_tokens} tokens used][Model: ${chatCompletion.model}]`
         )
 
-        console.log(chatCompletion.choices[0].message.function_call?.arguments)
-
         return {
             statusCode: 200,
             body: JSON.stringify({
@@ -50,13 +55,73 @@ export const handler: Handler = async (event, context) => {
     }
 }
 
+const buildPrompt = (level: level): ChatCompletionMessage => {
+    const BasePrompt = `
+    Make ${sentenceCount} sentences in Korean.
+    Translate each sentence to english.
+    `
+    return {
+        role: 'user',
+        content: levelPrompts[level] + BasePrompt,
+    }
+}
+
+const levelPrompts = {
+    A1: `
+      Generate highly natural sentences in Korean at CEFR level A1.
+      For example, something a 3-4 year old child could understand, or might say.
+      Sentences should be roughly 3-6 words, very short.
+      Sentences should use common vocabulary.
+      Use a mix of past, present, and future tense.
+    `,
+    A2: `
+      Generate highly natural sentences in Korean at CEFR level A2.
+      For example, something a 4-6 year old child could understand, or might say.
+      Sentences should be roughly 5-9 words, short.
+      Sentences should use common vocabulary, with occasional less frequent words.
+      Use a mix of past, present, and future tense.
+    `,
+    B1: `
+      Generate highly natural sentences in Korean at CEFR level B1.
+      For example, something a 6-7 year old child could understand, or might say.
+      Sentences should be roughly 8-12 words, and may be one or two clauses.
+      Sentences should use a mix of frequent words and less frequent words.
+      Use a mix of past, present, and future tense.
+    `,
+    B2: `
+      Generate highly natural sentences in Korean at CEFR level B2.
+      For example, something a 7-10 year old child could understand, or might say.
+      Sentences should be roughly 10-15 words, longish, and should be a mix of one or two clause sentences.
+      Sentences should use common vocabulary, with occasional less frequent words.
+      Use a mix of past, present, and future tense.
+    `,
+    C1: `
+      Generate highly natural sentences in Korean at CEFR level C1.
+      For example, something a 10-15 year old child could understand, or might say.
+      Sentences should be roughly 12-20 words.
+      Sentences Should be multiple clauses.
+      Sentences should use less frequent vocabulary.
+      Use a wide variety of grammatical tenses.
+      Advanced grammar ideas should be used.
+    `,
+    C2: `
+      Generate highly natural sentences in Korean at CEFR level C2.
+      Sentences should be roughly 15-25 words.
+      For example, something an educated adult could understand, or might say.
+      Sentences Should be multiple clauses.
+      Sentences should use less frequent vocabulary.
+      Use a wide variety of grammatical tenses.
+      Advanced grammar ideas should be used.
+    `,
+}
+
 // models
 const m3 = 'gpt-3.5-turbo'
 const m316 = 'gpt-3.5-turbo-16k'
 const m4 = 'gpt-4'
 
 // output formatting
-const sentenceCount = 5
+const sentenceCount = 3
 const schema = {
     type: 'object',
     properties: {
@@ -81,33 +146,10 @@ const schema = {
     required: ['sentences'],
 }
 
-const A1 = `
-Generate highly natural sentences in Korean at CEFR level A1.
-Sentences should be roughly 3-6 words.
-Sentences should use common vocabulary.
-Use a mix of past, present, and future tense.
-`
-
-const C2 = `
-Generate highly natural sentences in Korean at CEFR level C2.
-Sentences should be roughly 15-25 words
-Sentences Should be multiple clauses
-Sentences should use less frequent vocabulary
-Use a wide variety of grammatical tenses.
-`
-
-const BasePrompt = `
-Make ${sentenceCount} sentences in Korean.
-Translate each sentence to english.
-`
 const system: ChatCompletionMessage = {
     role: 'system',
     content:
         'You create native-like Korean sentences that are as close to natural as possible.',
-}
-const user: ChatCompletionMessage = {
-    role: 'user',
-    content: A1 + BasePrompt,
 }
 
 //messages
