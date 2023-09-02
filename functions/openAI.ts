@@ -1,6 +1,7 @@
 import { Handler } from '@netlify/functions'
 import { performance } from 'perf_hooks'
 import OpenAI from 'openai'
+import { ChatCompletionMessage } from 'openai/resources/chat'
 
 const openAI = new OpenAI({
     apiKey: `${process.env.OPENAI}`,
@@ -100,7 +101,10 @@ const system: ChatCompletionMessage = {
     content:
         'You create native-like Korean sentences that are as close to natural as possible.',
 }
-const user: ChatCompletionMessage = { role: 'user', content: A1 + BasePrompt }
+const user: ChatCompletionMessage = {
+    role: 'user',
+    content: A1 + BasePrompt,
+}
 
 //messages
 
