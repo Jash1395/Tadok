@@ -13,6 +13,8 @@
     "dependencies": {
         "@netlify/functions": "^1.6.0",
         "@types/node": "^14.18.56",
+        "axios": "^1.5.0",
+        "openai": "^4.4.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "styled-components": "^6.0.7"
@@ -28,7 +30,7 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.3",
         "prettier": "3.0.2",
-        "typescript": "^5.0.2",
+        "typescript": "^5.2.2",
         "vite": "^4.4.5"
     }
 }

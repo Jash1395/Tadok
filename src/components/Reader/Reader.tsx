@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { QuestionCard } from './QuestionCard'
 import { AnswerCard } from './AnswerCard'
 import { AnswerButton } from './AnswerButton'
+import { postOpenAI } from '../../api/postOpenAI'
 
 const Container = styled.div`
     flex: 1;
@@ -30,26 +31,23 @@ export const Reader = ({ level }: Props) => {
     const [error, setError] = useState<any>(null)
 
     useEffect(() => {
-        const fetchData = async (level: level) => {
+        const fetchSentences = async (level: level) => {
+            console.log(level)
             try {
-                const response = await fetch(
-                    `http://192.168.200.198:3000/${level}`
-                )
+                const response = await postOpenAI()
+                const data = response.data
+                console.log(data)
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`)
-                }
-
-                const data = await response.json()
                 setSentenceList(data)
                 setLoading(false)
             } catch (error) {
+                console.error('Error:', error)
                 setError(error)
                 setLoading(false)
             }
         }
 
-        fetchData(level)
+        fetchSentences(level)
     }, [])
 
     const getNextSentence = () => {
