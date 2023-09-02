@@ -1,7 +1,7 @@
 import { Handler } from '@netlify/functions'
 import { performance } from 'perf_hooks'
 import OpenAI from 'openai'
-import { ChatCompletionMessage } from 'openai/resources/chat'
+import { ChatCompletionMessageParam } from 'openai/resources/chat/completions'
 
 const openAI = new OpenAI({
     apiKey: `${process.env.OPENAI}`,
@@ -10,7 +10,7 @@ const openAI = new OpenAI({
 export const handler: Handler = async (event) => {
     try {
         const level = event.queryStringParameters?.level as level
-
+        console.log(level)
         if (!level || !['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].includes(level)) {
             throw Error('No level specified')
         }
@@ -20,7 +20,7 @@ export const handler: Handler = async (event) => {
 
         // call to openAI
         const chatCompletion = await openAI.chat.completions.create({
-            model: m3,
+            model: models.m3,
             messages: [system, user],
             functions: [{ name: 'get_sentences', parameters: schema }],
             function_call: { name: 'get_sentences' },
@@ -55,7 +55,7 @@ export const handler: Handler = async (event) => {
     }
 }
 
-const buildPrompt = (level: level): ChatCompletionMessage => {
+const buildPrompt = (level: level): ChatCompletionMessageParam => {
     const BasePrompt = `
     Make ${sentenceCount} sentences in Korean.
     Translate each sentence to english.
@@ -116,9 +116,11 @@ const levelPrompts = {
 }
 
 // models
-const m3 = 'gpt-3.5-turbo'
-const m316 = 'gpt-3.5-turbo-16k'
-const m4 = 'gpt-4'
+const models = {
+    m3: 'gpt-3.5-turbo',
+    m316: 'gpt-3.5-turbo-16k',
+    m4: 'gpt-4',
+}
 
 // output formatting
 const sentenceCount = 3
@@ -146,7 +148,7 @@ const schema = {
     required: ['sentences'],
 }
 
-const system: ChatCompletionMessage = {
+const system: ChatCompletionMessageParam = {
     role: 'system',
     content:
         'You create native-like Korean sentences that are as close to natural as possible.',
