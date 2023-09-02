@@ -9,7 +9,7 @@ const openAI = new OpenAI({
 
 export const handler: Handler = async (event, context) => {
     try {
-        performance.mark('A')
+        const startTime = performance.now()
 
         // call to openAI
         const chatCompletion = await openAI.chat.completions.create({
@@ -19,10 +19,12 @@ export const handler: Handler = async (event, context) => {
             function_call: { name: 'get_sentences' },
         })
 
-        performance.mark('B')
-        performance.measure('A to B', 'A', 'B')
-        const measure = performance.getEntriesByName('A to B')[0]
-        const seconds = parseFloat((measure.duration / 1000).toPrecision(2))
+        const endTime = performance.now()
+
+        // convert miliseconds to seconds at 2 sig fig
+        const seconds = parseFloat(
+            ((endTime - startTime) / 1000).toPrecision(2)
+        )
         console.log(
             `[Generated in ${seconds}s][${chatCompletion.usage?.total_tokens} tokens used][Model: ${chatCompletion.model}]`
         )
@@ -52,7 +54,7 @@ const m316 = 'gpt-3.5-turbo-16k'
 const m4 = 'gpt-4'
 
 // output formatting
-const sentenceCount = 5
+const sentenceCount = 1
 const schema = {
     type: 'object',
     properties: {
