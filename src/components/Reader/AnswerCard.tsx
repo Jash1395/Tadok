@@ -9,7 +9,11 @@ const Container = styled.div<{ visibility: string; text: string }>`
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;
     visibility: ${(props) => props.visibility};
-    font-size: ${(props) => 700 / Math.pow(props.text.length, 1.3) + 15}px;
+    font-size: clamp(
+        1.1rem,
+        ${(props) => 800 / Math.pow(props.text.length, 1.2) + 12}px,
+        2.9rem
+    );
     display: flex;
     align-items: center;
     justify-content: center;

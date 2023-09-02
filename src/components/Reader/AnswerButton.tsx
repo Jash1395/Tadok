@@ -73,7 +73,7 @@ export const AnswerButton = ({
     }
 
     const handleClick = (difficulty: difficulty) => {
-        sendAnswerData(difficulty)
+        // sendAnswerData(difficulty)
         getNextSentence()
         toggleShowAnswer()
     }

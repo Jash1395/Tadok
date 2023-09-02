@@ -31,7 +31,7 @@ export const Reader = ({ level }: Props) => {
     const [error, setError] = useState<any>(null)
 
     useEffect(() => {
-        if (sentenceList.length < 5) {
+        if (sentenceList.length < 10) {
             fetchSentences(level)
         }
 
@@ -43,15 +43,13 @@ export const Reader = ({ level }: Props) => {
     }, [sentenceList.length])
 
     const fetchSentences = async (level: level) => {
-        console.log(level)
         try {
             const sentences = await postOpenAI(level, 'korean', 'english')
             if (!sentences) {
                 console.error('Failed to fetch sentences.')
                 return
             }
-
-            console.log(sentences)
+            console.log(`Fetched ${sentences.length} sentences.`)
             appendSentenceList(sentences)
         } catch (error) {
             console.error('Error:', error)
