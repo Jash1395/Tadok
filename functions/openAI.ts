@@ -29,6 +29,8 @@ export const handler: Handler = async (event, context) => {
             `[Generated in ${seconds}s][${chatCompletion.usage?.total_tokens} tokens used][Model: ${chatCompletion.model}]`
         )
 
+        console.log(chatCompletion.choices[0].message.function_call?.arguments)
+
         return {
             statusCode: 200,
             body: JSON.stringify({
@@ -54,7 +56,7 @@ const m316 = 'gpt-3.5-turbo-16k'
 const m4 = 'gpt-4'
 
 // output formatting
-const sentenceCount = 1
+const sentenceCount = 5
 const schema = {
     type: 'object',
     properties: {
