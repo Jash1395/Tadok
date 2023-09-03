@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { LevelButton } from './LevelButton'
+import { LevelMenuButton } from './LevelMenuButton'
 
 const Container = styled.div`
     width: 100%;
@@ -18,7 +18,7 @@ export const Navbar = ({ level, openLevelMenu }: Props) => {
     return (
         <Container>
             {level && (
-                <LevelButton level={level} openLevelMenu={openLevelMenu} />
+                <LevelMenuButton level={level} openLevelMenu={openLevelMenu} />
             )}
         </Container>
     )

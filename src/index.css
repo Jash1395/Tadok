@@ -20,6 +20,9 @@ input[type='reset'] {
     font: inherit;
     cursor: pointer;
     outline: inherit;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 button {

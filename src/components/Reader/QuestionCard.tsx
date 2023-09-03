@@ -8,10 +8,13 @@ const Container = styled.div<{ text: string }>`
     color: #202020;
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;
+
+    // this scales the font size down for longer sentences,
+    // while not making it too short for very long sentences
     font-size: clamp(
         1.4rem,
         ${(props) => 800 / Math.pow(props.text.length, 1.2) + 20}px,
-        3.2rem
+        3rem
     );
     font-weight: 600;
     display: flex;

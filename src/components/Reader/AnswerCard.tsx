@@ -9,6 +9,9 @@ const Container = styled.div<{ visibility: string; text: string }>`
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;
     visibility: ${(props) => props.visibility};
+
+    // this scales the font size down for longer sentences,
+    //while not making it too short for very long sentences
     font-size: clamp(
         1.1rem,
         ${(props) => 800 / Math.pow(props.text.length, 1.2) + 12}px,
@@ -22,13 +25,22 @@ const Container = styled.div<{ visibility: string; text: string }>`
 `
 
 interface Props {
-    showAnswer: Boolean
     text: string
+    isTranslationVisible: boolean
+    showTranslation: () => void
 }
 
-export const AnswerCard = ({ text, showAnswer }: Props) => {
+export const AnswerCard = ({
+    text,
+    isTranslationVisible,
+    showTranslation,
+}: Props) => {
     return (
-        <Container text={text} visibility={showAnswer ? 'visible' : 'hidden'}>
+        <Container
+            onClick={showTranslation}
+            text={text}
+            visibility={isTranslationVisible ? 'visible' : 'hidden'}
+        >
             {text}
         </Container>
     )

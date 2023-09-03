@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { QuestionCard } from './QuestionCard'
 import { AnswerCard } from './AnswerCard'
 import { AnswerButton } from './AnswerButton'
+import { ShowTranslationButton } from './ShowTranslationButton'
 import { postOpenAI } from '../../api/postOpenAI'
 
 const Container = styled.div`
@@ -26,8 +27,9 @@ interface Props {
 
 export const Reader = ({ level }: Props) => {
     const [sentenceList, setSentenceList] = useState<Sentence[]>([])
-    const [showAnswer, setShowAnswer] = useState<Boolean>(false)
-    const [loading, setLoading] = useState<Boolean>(true)
+    const [isTranslationVisible, setIsTranslationVisible] =
+        useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
 
     useEffect(() => {
@@ -62,12 +64,13 @@ export const Reader = ({ level }: Props) => {
     }
 
     const goToNextSentence = () => {
+        setIsTranslationVisible(false)
         const newList = sentenceList?.slice(1)
         setSentenceList(newList)
     }
 
-    const toggleShowAnswer = () => {
-        setShowAnswer(!showAnswer)
+    const showTranslation = () => {
+        setIsTranslationVisible(true)
     }
 
     if (loading) {
@@ -93,13 +96,16 @@ export const Reader = ({ level }: Props) => {
                 <QuestionCard text={sentenceList[0].questionLang} />
                 <AnswerCard
                     text={sentenceList[0].answerLang}
-                    showAnswer={showAnswer}
+                    isTranslationVisible={isTranslationVisible}
+                    showTranslation={showTranslation}
                 />
             </CardContainer>
+            <ShowTranslationButton
+                isTranslationVisible={isTranslationVisible}
+                showTranslation={showTranslation}
+            />
             <AnswerButton
                 currentSentence={sentenceList[0]}
-                showAnswer={showAnswer}
-                toggleShowAnswer={toggleShowAnswer}
                 getNextSentence={goToNextSentence}
             />
         </Container>
