@@ -1,12 +1,12 @@
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions'
 import { levelPrompts } from './levelPromps'
 
-import A_words from './assets/A_words.json'
+// import A_words from './assets/A_words.json'
 import B_words from './assets/B_words.json'
 import C_words from './assets/C_words.json'
 
 export const buildPrompt = (level: level): ChatCompletionMessageParam => {
-    const aword = A_words[Math.floor(Math.random() * A_words.length)].word
+    // const aword = A_words[Math.floor(Math.random() * A_words.length)].word
 
     const bword = B_words[Math.floor(Math.random() * B_words.length)].word
     const bword1 = B_words[Math.floor(Math.random() * B_words.length)].word
