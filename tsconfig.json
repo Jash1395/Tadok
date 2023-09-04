@@ -22,6 +22,6 @@
         "noImplicitAny": true,
         "strictNullChecks": true
     },
-    "include": ["src", "functions", "types.d.ts"],
+    "include": ["src", "netlify"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

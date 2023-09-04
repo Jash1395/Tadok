@@ -10,10 +10,3 @@ interface Sentence {
 interface SentenceList {
     sentences: Sentence[]
 }
-
-// OpenAI
-
-// interface ChatCompletionMessage {
-//     role: string
-//     message: string
-// }
