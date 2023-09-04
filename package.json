@@ -3,6 +3,9 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
+    "node": {
+        "--experimental-json-modules": true
+    },
     "scripts": {
         "server": "json-server --host 192.168.200.198 db.json",
         "dev": "vite",
