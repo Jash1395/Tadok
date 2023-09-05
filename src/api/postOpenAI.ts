@@ -16,11 +16,12 @@ export async function postOpenAI(
 
     try {
         const response: AxiosResponse = await api.get(baseURL + params)
-        const data = JSON.parse(response.data.message)
+        const sentences = JSON.parse(response.data.message).sentences
+        const inputs = JSON.parse(response.data.inputs)
 
-        if (verifyJSON(data, questionLang, answerLang)) {
-            const formattedData = formatSentenceArray(data.sentences)
-            return formattedData
+        if (verifyJSON(sentences, questionLang, answerLang)) {
+            const formattedSentences = formatSentenceArray(sentences, inputs)
+            return formattedSentences
         }
         return null
     } catch (error: any) {

@@ -21,12 +21,17 @@ const system: ChatCompletionMessageParam = {
 }
 
 export const getChatCompletion = async (level: level) => {
-    const user = buildPrompt(level)
+    const promptData = buildPrompt(level)
 
-    return openAI.chat.completions.create({
+    const chatCompletion = await openAI.chat.completions.create({
         model: models.m3,
-        messages: [system, user],
+        messages: [system, promptData.chatCompletionMessageParam],
         functions: [{ name: 'get_sentences', parameters: schema }],
         function_call: { name: 'get_sentences' },
     })
+
+    return {
+        chatCompletion: chatCompletion,
+        inputs: promptData.inputs,
+    }
 }

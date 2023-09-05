@@ -5,8 +5,35 @@ type lang = 'english' | 'korean'
 interface Sentence {
     [questionLang: string]: string
     [answerLang: string]: string
+    inputs: Inputs
 }
+
+// interface SentenceText {
+
+// }
+
+interface Card {}
 
 interface SentenceList {
     sentences: Sentence[]
+}
+
+// OPENAI
+
+interface WordEntry {
+    word: string
+    definition: string
+    phrase: string
+}
+
+type Wordlist = WordEntry[]
+
+interface PromptData {
+    chatCompletionMessageParam: ChatCompletionMessageParam
+    inputs: Inputs
+}
+
+interface Inputs {
+    seedWord: WordEntry
+    tense: string
 }

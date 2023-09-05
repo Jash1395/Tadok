@@ -3,14 +3,14 @@ import { useState } from 'react'
 import { buttonPress, levelColors } from '../../styles'
 
 const Button = styled.button<{
-    backgroundColor: string
+    $backgroundColor: string
 }>`
     margin-left: 1rem;
     width: 4rem;
     height: 2rem;
     border-radius: 0.4rem;
     color: white;
-    background-color: ${(props) => props.backgroundColor};
+    background-color: ${(props) => props.$backgroundColor};
     text-shadow: 1px 1px 2px #606060;
     font-weight: 700;
     display: flex;
@@ -39,7 +39,7 @@ export const LevelMenuButton = ({ level, openLevelMenu }: Props) => {
     }
     return (
         <Button
-            backgroundColor={levelColors.strong[level]}
+            $backgroundColor={levelColors.strong[level]}
             onClick={handleClick}
         >
             {level}

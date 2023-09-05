@@ -35,6 +35,8 @@ export const Reader = ({ level }: Props) => {
     useEffect(() => {
         if (sentenceList.length < 10) {
             fetchSentences(level)
+            fetchSentences(level)
+            fetchSentences(level)
         }
 
         if (sentenceList.length === 0) {
@@ -51,7 +53,7 @@ export const Reader = ({ level }: Props) => {
                 console.error('Failed to fetch sentences.')
                 return
             }
-            console.log(`Fetched ${sentences.length} sentences.`)
+            // console.log(`Fetched ${sentences.length} sentences.`)
             appendSentenceList(sentences)
         } catch (error) {
             console.error('Error:', error)
@@ -96,6 +98,7 @@ export const Reader = ({ level }: Props) => {
                 <QuestionCard text={sentenceList[0].questionLang} />
                 <AnswerCard
                     text={sentenceList[0].answerLang}
+                    inputs={sentenceList[0].inputs}
                     isTranslationVisible={isTranslationVisible}
                     showTranslation={showTranslation}
                 />

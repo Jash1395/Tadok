@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Container = styled.div<{ text: string }>`
+const Container = styled.div<{ $text: string }>`
     padding: 1rem;
     width: calc(92% - 2rem);
     height: 12rem;
@@ -13,8 +13,8 @@ const Container = styled.div<{ text: string }>`
     // while not making it too short for very long sentences
     font-size: clamp(
         1.4rem,
-        ${(props) => 800 / Math.pow(props.text.length, 1.2) + 20}px,
-        3rem
+        ${(props) => 400 / Math.pow(props.$text.length, 1.2) + 10}px,
+        2.7rem
     );
     font-weight: 600;
     display: flex;
@@ -30,7 +30,7 @@ interface Props {
 
 export const QuestionCard = ({ text }: Props) => {
     return (
-        <Container text={text} id="container">
+        <Container $text={text} id="container">
             {text}
         </Container>
     )

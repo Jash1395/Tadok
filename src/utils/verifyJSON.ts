@@ -1,26 +1,15 @@
 export const verifyJSON = (
-    JSONObject: any,
+    sentences: any,
     questionLang: lang,
     answerLang: lang
 ): boolean => {
-    if (typeof JSONObject !== 'object' || JSONObject === null) {
+    if (typeof sentences !== 'object' || sentences === null) {
         console.error('Incorrect JSON format: Not object.')
         return false
     }
 
-    // Check if JSONObject has a 'sentences' property
-    if (
-        !JSONObject.hasOwnProperty('sentences') ||
-        !Array.isArray(JSONObject.sentences)
-    ) {
-        console.error(
-            'Incorrect JSON format: Does not have "sentences" property.'
-        )
-        return false
-    }
-
     // Check the structure of each sentence object
-    for (const sentence of JSONObject.sentences) {
+    for (const sentence of sentences) {
         if (
             typeof sentence !== 'object' ||
             sentence === null ||

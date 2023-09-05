@@ -14,24 +14,36 @@ const Container = styled.div<{ visibility: string; text: string }>`
     //while not making it too short for very long sentences
     font-size: clamp(
         1.1rem,
-        ${(props) => 800 / Math.pow(props.text.length, 1.2) + 12}px,
-        2.9rem
+        ${(props) => 500 / Math.pow(props.text.length, 1.3) + 5}px,
+        2.5rem
     );
     display: flex;
     align-items: center;
     justify-content: center;
     word-break: keep-all;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
+
+const Text = styled.p``
+
+const BoldText = styled.p`
+    margin-bottom: 1rem;
+    font-weight: 600;
 `
 
 interface Props {
     text: string
+    inputs: Inputs
     isTranslationVisible: boolean
     showTranslation: () => void
 }
 
 export const AnswerCard = ({
     text,
+    inputs,
     isTranslationVisible,
     showTranslation,
 }: Props) => {
@@ -41,7 +53,9 @@ export const AnswerCard = ({
             text={text}
             visibility={isTranslationVisible ? 'visible' : 'hidden'}
         >
-            {text}
+            <BoldText>{text}</BoldText>
+            <Text>{inputs.seedWord.word}</Text>
+            <Text>{inputs.seedWord.definition}</Text>
         </Container>
     )
 }

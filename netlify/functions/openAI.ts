@@ -12,16 +12,21 @@ export const handler: Handler = async (event) => {
 
         // call to openAI
         const startTime = performance.now()
-        const chatCompletion = await getChatCompletion(level)
+        const output = await getChatCompletion(level)
         const endTime = performance.now()
-        logChatCompletionDetails(startTime, endTime, chatCompletion)
+        logChatCompletionDetails(startTime, endTime, output.chatCompletion)
+
+        // when this is stringified, "message" is stringified, but "inputs" is not (hence extra stringify)
+        const returnData = {
+            message:
+                output.chatCompletion.choices[0].message.function_call
+                    ?.arguments,
+            inputs: JSON.stringify(output.inputs),
+        }
 
         return {
             statusCode: 200,
-            body: JSON.stringify({
-                message:
-                    chatCompletion.choices[0].message.function_call?.arguments,
-            }),
+            body: JSON.stringify(returnData),
         }
     } catch (error) {
         console.error('Error:', error)

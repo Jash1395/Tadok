@@ -1,37 +1,56 @@
-import { ChatCompletionMessageParam } from 'openai/resources/chat/completions'
 import { levelPrompts } from './levelPromps'
 
-// import A_words from './assets/A_words.json'
+import A_words from './assets/A_words.json'
 import B_words from './assets/B_words.json'
 import C_words from './assets/C_words.json'
 
-export const buildPrompt = (level: level): ChatCompletionMessageParam => {
-    // const aword = A_words[Math.floor(Math.random() * A_words.length)].word
+const wordlists = {
+    A1: A_words as Wordlist,
+    A2: A_words as Wordlist,
+    B1: B_words as Wordlist,
+    B2: B_words as Wordlist,
+    C1: C_words as Wordlist,
+    C2: C_words as Wordlist,
+}
 
-    const bword = B_words[Math.floor(Math.random() * B_words.length)].word
-    const bword1 = B_words[Math.floor(Math.random() * B_words.length)].word
-    const bword2 = B_words[Math.floor(Math.random() * B_words.length)].word
-
-    const cword = C_words[Math.floor(Math.random() * C_words.length)].word
-    const cword1 = C_words[Math.floor(Math.random() * C_words.length)].word
-    const cword2 = C_words[Math.floor(Math.random() * C_words.length)].word
-
-    const one = level === 'C1' || level === 'C2' ? cword : bword
-    const two = level === 'C1' || level === 'C2' ? cword1 : bword1
-    const three = level === 'C1' || level === 'C2' ? cword2 : bword2
-
-    console.log(cword, cword1, cword2)
-
-    const BasePrompt = `
-    YOU MUST USE THE WORD ${one}, ${two}, or ${three}. This is the most important.
-    Make sentences in Korean.
-    Translate each sentence to english.
-    Use a mix of past, present, and future tense.
-    `
-    const levelPrompt = levelPrompts[level]
-
-    return {
-        role: 'user',
-        content: levelPrompt + BasePrompt,
+const getRandomWord = (wordlist: Wordlist) => {
+    if (wordlist.length === 0) {
+        throw Error('Empty wordlist')
     }
+
+    const randomIndex = Math.floor(Math.random() * wordlist.length)
+    return wordlist[randomIndex]
+}
+
+function getRandomTense() {
+    const tense = ['past', 'present', 'future']
+    const randomIndex = Math.floor(Math.random() * tense.length)
+    return tense[randomIndex]
+}
+
+export const buildPrompt = (level: level): PromptData => {
+    const seedWord = getRandomWord(wordlists[level])
+    const tense = getRandomTense()
+    console.log(seedWord.word, tense, seedWord.definition)
+
+    const userPrompt = `
+    Make exactly one sentencnces in Korean using the word "${seedWord.word}", where ${seedWord.word} has the meaning "${seedWord.definition}"
+    Translate each sentence to english.
+    ${levelPrompts[level]}
+    
+    `
+    // Use the ${tense} tense.
+
+    const promptData = {
+        chatCompletionMessageParam: {
+            role: 'user',
+            content: userPrompt,
+        },
+        inputs: {
+            seedWord: seedWord,
+            tense: tense,
+        },
+    }
+
+    return promptData
 }

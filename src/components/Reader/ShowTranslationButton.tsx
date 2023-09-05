@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { buttonPress } from '../../styles'
 
-const Button = styled.button<{ isTranslationVisible: boolean }>`
+const Button = styled.button<{ $isTranslationVisible: boolean }>`
     margin-bottom: 1.2rem;
     height: 3.6rem;
     width: 80%;
@@ -11,7 +11,7 @@ const Button = styled.button<{ isTranslationVisible: boolean }>`
     font-weight: 600;
     border: none;
     border-radius: 999rem;
-    opacity: ${(props) => (props.isTranslationVisible ? 0 : 1)};
+    opacity: ${(props) => (props.$isTranslationVisible ? 0 : 1)};
     transition: opacity 0.1s ease-in;
 
     // $buttonPress must be above $:active or easing out will break
@@ -32,7 +32,7 @@ export const ShowTranslationButton = ({
 }: Props) => {
     return (
         <Button
-            isTranslationVisible={isTranslationVisible}
+            $isTranslationVisible={isTranslationVisible}
             onClick={showTranslation}
         >
             Show Translation
