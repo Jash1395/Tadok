@@ -2,12 +2,12 @@ import { css } from 'styled-components'
 
 export const levelColors = {
     weak: {
-        A1: '#4caf5060',
-        A2: '#4caf5060',
-        B1: '#ffd70060',
-        B2: '#ffd70060',
-        C1: '#ff573360',
-        C2: '#ff573360',
+        A1: '#4caf5050',
+        A2: '#4caf5050',
+        B1: '#ffd70050',
+        B2: '#ffd70050',
+        C1: '#ff573350',
+        C2: '#ff573350',
     },
     strong: {
         A1: '#4caf4fc4',

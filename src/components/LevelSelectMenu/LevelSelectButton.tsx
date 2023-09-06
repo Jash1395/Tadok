@@ -13,12 +13,9 @@ const Button = styled.button<{
     border-radius: 0.3rem;
     box-shadow: 2px 2px 8px -3px #6060607d;
     background-color: ${(props) => props.$backgroundColor};
-    /* border-right: 6px solid ${(props) => props.$color}; */
     border-left: 6px solid ${(props) => props.$color};
-    font-size: 1.4rem;
-    font-weight: 700;
     opacity: ${(props) => (props.$isHidden ? 0 : 1)};
-    transform: ${(props) => (props.$isSelected ? 'scale(1.15)' : 'scale(1)')};
+    transform: ${(props) => (props.$isSelected ? 'scale(1.10)' : 'scale(1)')};
     transition:
         opacity 0.09s ease-in,
         transform 0.11s ease-in;
@@ -26,11 +23,23 @@ const Button = styled.button<{
     &:active {
         transition: background-color 0.2s ease-in;
     }
+
+    display: flex;
+    align-items: center;
 `
 
-const LevelText = styled.p``
+const LevelText = styled.p`
+    margin-left: 0.6rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+`
 
-const DescriptionText = styled.p``
+const DescriptionText = styled.p`
+    flex: 1;
+    margin-right: 2rem;
+    font-size: 1rem;
+    font-weight: 400;
+`
 
 interface Props {
     level: level
@@ -47,6 +56,15 @@ export const LevelSelectButton = ({
 }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
 
+    const levelDescriptions = {
+        A1: 'Beginner',
+        A2: 'Elementary',
+        B1: 'Intermediate',
+        B2: 'Upper intermediate',
+        C1: 'Advanced',
+        C2: 'Proficient',
+    }
+
     const handleClick = () => {
         if (!isClickDisabled) {
             setIsSelected(true)
@@ -62,12 +80,12 @@ export const LevelSelectButton = ({
         <Button
             $isHidden={isClickDisabled && !isSelected}
             $isSelected={isSelected}
-            $backgroundColor={isSelected ? levelColors.strong[level] : 'white'}
-            $color={levelColors.strong[level]}
+            $backgroundColor={isSelected ? levelColors.weak[level] : 'white'}
+            $color={levelColors.full[level]}
             onClick={handleClick}
         >
-            <LevelText>{level}</LevelText>
-            <DescriptionText></DescriptionText>
+            <LevelText>{`${level}`}</LevelText>
+            <DescriptionText>{levelDescriptions[level]}</DescriptionText>
         </Button>
     )
 }
