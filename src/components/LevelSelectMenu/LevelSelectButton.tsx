@@ -4,14 +4,17 @@ import { buttonPress, levelColors } from '../../styles'
 
 const Button = styled.button<{
     $backgroundColor: string
+    $color: string
     $isHidden: boolean
     $isSelected: boolean
 }>`
-    width: 70%;
-    height: 3.4rem;
+    width: 75%;
+    height: 3.2rem;
     border-radius: 0.3rem;
     box-shadow: 2px 2px 8px -3px #6060607d;
     background-color: ${(props) => props.$backgroundColor};
+    /* border-right: 6px solid ${(props) => props.$color}; */
+    border-left: 6px solid ${(props) => props.$color};
     font-size: 1.4rem;
     font-weight: 700;
     opacity: ${(props) => (props.$isHidden ? 0 : 1)};
@@ -24,6 +27,10 @@ const Button = styled.button<{
         transition: background-color 0.2s ease-in;
     }
 `
+
+const LevelText = styled.p``
+
+const DescriptionText = styled.p``
 
 interface Props {
     level: level
@@ -55,12 +62,12 @@ export const LevelSelectButton = ({
         <Button
             $isHidden={isClickDisabled && !isSelected}
             $isSelected={isSelected}
-            $backgroundColor={
-                isSelected ? levelColors.strong[level] : levelColors.weak[level]
-            }
+            $backgroundColor={isSelected ? levelColors.strong[level] : 'white'}
+            $color={levelColors.strong[level]}
             onClick={handleClick}
         >
-            {level}
+            <LevelText>{level}</LevelText>
+            <DescriptionText></DescriptionText>
         </Button>
     )
 }

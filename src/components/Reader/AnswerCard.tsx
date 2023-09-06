@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Container = styled.div<{ visibility: string; text: string }>`
+const Container = styled.div<{ $visibility: string; text: string }>`
     padding: 1rem;
     width: calc(92% - 2rem);
     height: 12rem;
@@ -8,7 +8,7 @@ const Container = styled.div<{ visibility: string; text: string }>`
     color: #202020;
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;
-    visibility: ${(props) => props.visibility};
+    visibility: ${(props) => props.$visibility};
 
     // this scales the font size down for longer sentences,
     //while not making it too short for very long sentences
@@ -51,7 +51,7 @@ export const AnswerCard = ({
         <Container
             onClick={showTranslation}
             text={text}
-            visibility={isTranslationVisible ? 'visible' : 'hidden'}
+            $visibility={isTranslationVisible ? 'visible' : 'hidden'}
         >
             <BoldText>{text}</BoldText>
             <Text>{inputs.seedWord.word}</Text>
