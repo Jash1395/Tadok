@@ -8,9 +8,19 @@ import { postOpenAI } from '../../api/postOpenAI'
 
 const Container = styled.div`
     flex: 1;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+
+    @media (min-width: 577px) {
+        border-radius: 1rem;
+        box-shadow: 0px 0px 50px -10px #60606045;
+        max-width: 550px;
+        max-height: 42rem;
+        overflow: hidden;
+    }
 `
 const CardContainer = styled.div`
     flex: 1;
@@ -53,7 +63,6 @@ export const Reader = ({ level }: Props) => {
                 console.error('Failed to fetch sentences.')
                 return
             }
-            // console.log(`Fetched ${sentences.length} sentences.`)
             appendSentenceList(sentences)
         } catch (error) {
             console.error('Error:', error)

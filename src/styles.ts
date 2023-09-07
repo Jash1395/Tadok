@@ -36,3 +36,8 @@ export const buttonPress = css`
             box-shadow 0.08s ease-out;
     }
 `
+
+// pallete
+// #ffd700
+// #00405f
+// #202020
