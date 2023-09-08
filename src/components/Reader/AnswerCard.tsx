@@ -48,12 +48,12 @@ export const AnswerCard = ({
     showTranslation,
 }: Props) => {
     const text =
-        sentenceList.length > 1
+        sentenceList.length > 0
             ? sentenceList[0].answerLang
             : 'No sentence found.'
 
     const inputs =
-        sentenceList.length > 1
+        sentenceList.length > 0
             ? sentenceList[0].inputs
             : {
                   seedWord: {

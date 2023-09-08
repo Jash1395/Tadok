@@ -61,7 +61,7 @@ export const QuestionCard = ({
     isLoading,
 }: Props) => {
     const text =
-        sentenceList.length > 1
+        sentenceList.length > 0
             ? sentenceList[0].questionLang
             : 'No sentence found.'
 
