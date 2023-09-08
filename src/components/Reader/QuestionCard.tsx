@@ -1,6 +1,21 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
-const Container = styled.div<{ $text: string }>`
+const flashAnimation = (color: string) => keyframes`
+  0% {
+    box-shadow: 3px 3px 10px -3px #6060607d;
+  }
+  5% {
+    box-shadow: 0 0 13px -1px ${color};
+  }
+  100% {
+    box-shadow: 3px 3px 10px -3px #6060607d;
+  }
+`
+
+const Container = styled.div<{
+    $text: string
+    $flashColor: string | false
+}>`
     padding: 1rem;
     width: calc(92% - 2rem);
     height: 12rem;
@@ -8,6 +23,13 @@ const Container = styled.div<{ $text: string }>`
     color: #202020;
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;
+
+    animation: ${(props) =>
+        props.$flashColor
+            ? css`
+                  ${flashAnimation(props.$flashColor)} 1s ease-in-out
+              `
+            : 'none'};
 
     // this scales the font size down for longer sentences,
     // while not making it too short for very long sentences
@@ -26,11 +48,20 @@ const Container = styled.div<{ $text: string }>`
 
 interface Props {
     text: string
+    isFlashAnswer: Difficulty | false
 }
 
-export const QuestionCard = ({ text }: Props) => {
+export const QuestionCard = ({ text, isFlashAnswer }: Props) => {
+    const flashColor =
+        isFlashAnswer &&
+        {
+            easy: '#4caf4f',
+            okay: '#ffd700',
+            hard: '#ff5733',
+        }[isFlashAnswer]
+
     return (
-        <Container $text={text} id="container">
+        <Container $flashColor={flashColor} $text={text}>
             {text}
         </Container>
     )

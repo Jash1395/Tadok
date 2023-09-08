@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Container = styled.div<{ $visibility: string; text: string }>`
+const Container = styled.div<{ $visibility: string; $text: string }>`
     padding: 1rem;
     width: calc(92% - 2rem);
     height: 12rem;
@@ -14,7 +14,7 @@ const Container = styled.div<{ $visibility: string; text: string }>`
     //while not making it too short for very long sentences
     font-size: clamp(
         1.1rem,
-        ${(props) => 500 / Math.pow(props.text.length, 1.3) + 5}px,
+        ${(props) => 500 / Math.pow(props.$text.length, 1.3) + 5}px,
         2.5rem
     );
     display: flex;
@@ -50,7 +50,7 @@ export const AnswerCard = ({
     return (
         <Container
             onClick={showTranslation}
-            text={text}
+            $text={text}
             $visibility={isTranslationVisible ? 'visible' : 'hidden'}
         >
             <BoldText>{text}</BoldText>

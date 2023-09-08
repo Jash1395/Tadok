@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { QuestionCard } from './QuestionCard'
 import { AnswerCard } from './AnswerCard'
 import { AnswerButton } from './AnswerButton'
@@ -32,13 +32,16 @@ const CardContainer = styled.div`
 `
 
 interface Props {
-    level: level
+    level: Level
 }
 
 export const Reader = ({ level }: Props) => {
     const [sentenceList, setSentenceList] = useState<Sentence[]>([])
     const [isTranslationVisible, setIsTranslationVisible] =
         useState<boolean>(false)
+    const [isFlashAnswer, setIsFlashAnswer] = useState<Difficulty | false>(
+        false
+    )
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
 
@@ -56,7 +59,15 @@ export const Reader = ({ level }: Props) => {
         }
     }, [sentenceList.length])
 
-    const fetchSentences = async (level: level) => {
+    const flashAnswer = (difficulty: Difficulty) => {
+        // toggle isFlashAnswer to reset any active animations
+        setIsFlashAnswer(false)
+        setTimeout(() => {
+            setIsFlashAnswer(difficulty)
+        }, 1)
+    }
+
+    const fetchSentences = async (level: Level) => {
         try {
             const sentences = await postOpenAI(level, 'korean', 'english')
             if (!sentences) {
@@ -104,7 +115,10 @@ export const Reader = ({ level }: Props) => {
     return (
         <Container>
             <CardContainer>
-                <QuestionCard text={sentenceList[0].questionLang} />
+                <QuestionCard
+                    text={sentenceList[0].questionLang}
+                    isFlashAnswer={isFlashAnswer}
+                />
                 <AnswerCard
                     text={sentenceList[0].answerLang}
                     inputs={sentenceList[0].inputs}
@@ -118,6 +132,7 @@ export const Reader = ({ level }: Props) => {
             />
             <AnswerButton
                 currentSentence={sentenceList[0]}
+                flashAnswer={flashAnswer}
                 getNextSentence={goToNextSentence}
             />
         </Container>

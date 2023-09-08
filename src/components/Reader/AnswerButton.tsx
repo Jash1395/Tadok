@@ -72,15 +72,21 @@ const EasyButton = styled(DifficultyButton)`
 `
 interface Props {
     currentSentence: Sentence | undefined
+    flashAnswer: (difficulty: Difficulty) => void
     getNextSentence: () => void
 }
 
-export const AnswerButton = ({ currentSentence, getNextSentence }: Props) => {
-    const sendAnswerData = (difficulty: difficulty) => {
+export const AnswerButton = ({
+    currentSentence,
+    flashAnswer,
+    getNextSentence,
+}: Props) => {
+    const sendAnswerData = (difficulty: Difficulty) => {
         console.log(difficulty, currentSentence)
     }
 
-    const handleClick = (difficulty: difficulty) => {
+    const handleClick = (difficulty: Difficulty) => {
+        flashAnswer(difficulty)
         sendAnswerData(difficulty)
         getNextSentence()
     }
