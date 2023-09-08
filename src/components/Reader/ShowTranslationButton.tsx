@@ -23,17 +23,20 @@ const Button = styled.button<{ $isTranslationVisible: boolean }>`
 
 interface Props {
     isTranslationVisible: boolean
+    isLoading: boolean
     showTranslation: () => void
 }
 
 export const ShowTranslationButton = ({
     isTranslationVisible,
+    isLoading,
     showTranslation,
 }: Props) => {
     return (
         <Button
             $isTranslationVisible={isTranslationVisible}
             onClick={showTranslation}
+            disabled={isLoading}
         >
             Show Translation
         </Button>

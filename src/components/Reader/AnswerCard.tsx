@@ -35,23 +35,42 @@ const BoldText = styled.p`
 `
 
 interface Props {
-    text: string
-    inputs: Inputs
+    sentenceList: Sentence[]
     isTranslationVisible: boolean
+    isLoading: boolean
     showTranslation: () => void
 }
 
 export const AnswerCard = ({
-    text,
-    inputs,
+    sentenceList,
     isTranslationVisible,
+    isLoading,
     showTranslation,
 }: Props) => {
+    const text =
+        sentenceList.length > 1
+            ? sentenceList[0].answerLang
+            : 'No sentence found.'
+
+    const inputs =
+        sentenceList.length > 1
+            ? sentenceList[0].inputs
+            : {
+                  seedWord: {
+                      word: '',
+                      definition: '',
+                      phrase: '',
+                  },
+                  tense: '',
+              }
+
     return (
         <Container
             onClick={showTranslation}
             $text={text}
-            $visibility={isTranslationVisible ? 'visible' : 'hidden'}
+            $visibility={
+                isTranslationVisible && !isLoading ? 'visible' : 'hidden'
+            }
         >
             <BoldText>{text}</BoldText>
             <Text>{inputs.seedWord.word}</Text>

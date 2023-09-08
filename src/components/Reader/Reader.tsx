@@ -17,7 +17,7 @@ const Container = styled.div`
     @media (min-width: 577px) {
         border-radius: 1rem;
         box-shadow: 0px 0px 50px -10px #60606045;
-        max-width: 550px;
+        max-width: 450px;
         max-height: 42rem;
         overflow: hidden;
     }
@@ -42,7 +42,7 @@ export const Reader = ({ level }: Props) => {
     const [isFlashAnswer, setIsFlashAnswer] = useState<Difficulty | false>(
         false
     )
-    const [loading, setLoading] = useState<boolean>(true)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
 
     useEffect(() => {
@@ -53,9 +53,9 @@ export const Reader = ({ level }: Props) => {
         }
 
         if (sentenceList.length === 0) {
-            setLoading(true)
+            setIsLoading(true)
         } else {
-            setLoading(false)
+            setIsLoading(false)
         }
     }, [sentenceList.length])
 
@@ -95,43 +95,46 @@ export const Reader = ({ level }: Props) => {
         setIsTranslationVisible(true)
     }
 
-    if (loading) {
-        return <div>Loading...</div>
-    }
-
     if (error && sentenceList.length === 0) {
         return <div>Error: {error.message}</div>
     }
 
-    if (
-        !sentenceList ||
-        !sentenceList[0] ||
-        !sentenceList[0].answerLang ||
-        !sentenceList[0].questionLang
-    ) {
-        return <div>No sentences found</div>
-    }
+    // if (
+    //     !sentenceList ||
+    //     !sentenceList[0] ||
+    //     !sentenceList[0].answerLang ||
+    //     !sentenceList[0].questionLang
+    // ) {
+    //     // console.log(1, sentenceList)
+    //     // console.log(2, sentenceList[0])
+    //     // console.log(3, sentenceList[0].answerLang)
+    //     // console.log(4, sentenceList[0].questionLang)
+    //     return <div>No sentences found</div>
+    // }
 
     return (
         <Container>
             <CardContainer>
                 <QuestionCard
-                    text={sentenceList[0].questionLang}
+                    sentenceList={sentenceList}
                     isFlashAnswer={isFlashAnswer}
+                    isLoading={isLoading}
                 />
                 <AnswerCard
-                    text={sentenceList[0].answerLang}
-                    inputs={sentenceList[0].inputs}
+                    sentenceList={sentenceList}
                     isTranslationVisible={isTranslationVisible}
+                    isLoading={isLoading}
                     showTranslation={showTranslation}
                 />
             </CardContainer>
             <ShowTranslationButton
                 isTranslationVisible={isTranslationVisible}
+                isLoading={isLoading}
                 showTranslation={showTranslation}
             />
             <AnswerButton
-                currentSentence={sentenceList[0]}
+                currentSentence={sentenceList[0] || ''}
+                isLoading={isLoading}
                 flashAnswer={flashAnswer}
                 getNextSentence={goToNextSentence}
             />

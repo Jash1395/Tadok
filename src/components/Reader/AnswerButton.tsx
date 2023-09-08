@@ -72,12 +72,14 @@ const EasyButton = styled(DifficultyButton)`
 `
 interface Props {
     currentSentence: Sentence | undefined
+    isLoading: boolean
     flashAnswer: (difficulty: Difficulty) => void
     getNextSentence: () => void
 }
 
 export const AnswerButton = ({
     currentSentence,
+    isLoading,
     flashAnswer,
     getNextSentence,
 }: Props) => {
@@ -93,9 +95,24 @@ export const AnswerButton = ({
 
     return (
         <Container>
-            <HardButton onClick={() => handleClick('hard')}>Hard</HardButton>
-            <OkayButton onClick={() => handleClick('okay')}>Okay</OkayButton>
-            <EasyButton onClick={() => handleClick('easy')}>Easy</EasyButton>
+            <HardButton
+                onClick={() => handleClick('hard')}
+                disabled={isLoading}
+            >
+                Hard
+            </HardButton>
+            <OkayButton
+                onClick={() => handleClick('okay')}
+                disabled={isLoading}
+            >
+                Okay
+            </OkayButton>
+            <EasyButton
+                onClick={() => handleClick('easy')}
+                disabled={isLoading}
+            >
+                Easy
+            </EasyButton>
         </Container>
     )
 }
