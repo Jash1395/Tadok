@@ -38,43 +38,30 @@ interface Props {
     sentenceList: Sentence[]
     isTranslationVisible: boolean
     isLoading: boolean
-    showTranslation: () => void
 }
 
 export const AnswerCard = ({
     sentenceList,
     isTranslationVisible,
     isLoading,
-    showTranslation,
 }: Props) => {
-    const text =
-        sentenceList.length > 0
-            ? sentenceList[0].answerLang
-            : 'No sentence found.'
+    if (sentenceList.length < 1) {
+        return <Container $text={''} $visibility={'hidden'} />
+    }
 
-    const inputs =
-        sentenceList.length > 0
-            ? sentenceList[0].inputs
-            : {
-                  seedWord: {
-                      word: '',
-                      definition: '',
-                      phrase: '',
-                  },
-                  tense: '',
-              }
+    const text = sentenceList[0].answerLang
+    const seedWord = sentenceList[0].inputs.seedWord
 
     return (
         <Container
-            onClick={showTranslation}
             $text={text}
             $visibility={
                 isTranslationVisible && !isLoading ? 'visible' : 'hidden'
             }
         >
             <BoldText>{text}</BoldText>
-            <Text>{inputs.seedWord.word}</Text>
-            <Text>{inputs.seedWord.definition}</Text>
+            <Text>{seedWord.word}</Text>
+            <Text>{seedWord.definition}</Text>
         </Container>
     )
 }

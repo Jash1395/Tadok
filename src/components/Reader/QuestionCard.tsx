@@ -37,6 +37,7 @@ const Container = styled.div<{
 
 const Text = styled.p<{ $text: string }>`
     color: #202020;
+
     // this scales the font size down for longer sentences,
     // while not making it too short for very long sentences
     font-size: clamp(
@@ -63,7 +64,7 @@ export const QuestionCard = ({
     const text =
         sentenceList.length > 0
             ? sentenceList[0].questionLang
-            : 'No sentence found.'
+            : 'Failed to fetch sentnces.'
 
     const flashColor =
         isFlashAnswer &&

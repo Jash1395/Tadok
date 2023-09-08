@@ -99,19 +99,6 @@ export const Reader = ({ level }: Props) => {
         return <div>Error: {error.message}</div>
     }
 
-    // if (
-    //     !sentenceList ||
-    //     !sentenceList[0] ||
-    //     !sentenceList[0].answerLang ||
-    //     !sentenceList[0].questionLang
-    // ) {
-    //     // console.log(1, sentenceList)
-    //     // console.log(2, sentenceList[0])
-    //     // console.log(3, sentenceList[0].answerLang)
-    //     // console.log(4, sentenceList[0].questionLang)
-    //     return <div>No sentences found</div>
-    // }
-
     return (
         <Container>
             <CardContainer>
@@ -124,7 +111,6 @@ export const Reader = ({ level }: Props) => {
                     sentenceList={sentenceList}
                     isTranslationVisible={isTranslationVisible}
                     isLoading={isLoading}
-                    showTranslation={showTranslation}
                 />
             </CardContainer>
             <ShowTranslationButton
