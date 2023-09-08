@@ -20,7 +20,7 @@ const system: ChatCompletionMessageParam = {
         'You create native-like Korean sentences that are as close to natural as possible.',
 }
 
-export const getChatCompletion = async (level: level) => {
+export const getChatCompletion = async (level: Level) => {
     const promptData = buildPrompt(level)
 
     const chatCompletion = await openAI.chat.completions.create({

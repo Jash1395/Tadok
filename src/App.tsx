@@ -16,7 +16,7 @@ const Container = styled.div`
 `
 
 const App = () => {
-    const [level, setLevel] = useState<level | null>(null)
+    const [level, setLevel] = useState<Level | null>(null)
 
     const openLevelMenu = () => {
         setLevel(null)

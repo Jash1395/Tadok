@@ -5,7 +5,7 @@ import { logChatCompletionDetails } from '../logChatCompletionDetails'
 
 export const handler: Handler = async (event) => {
     try {
-        const level = event.queryStringParameters?.level as level
+        const level = event.queryStringParameters?.level as Level
         if (!level || !['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].includes(level)) {
             throw Error('No level specified')
         }

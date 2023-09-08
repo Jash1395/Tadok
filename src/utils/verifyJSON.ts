@@ -1,7 +1,7 @@
 export const verifyJSON = (
     sentences: any,
-    questionLang: lang,
-    answerLang: lang
+    questionLang: Lang,
+    answerLang: Lang
 ): boolean => {
     if (typeof sentences !== 'object' || sentences === null) {
         console.error('Incorrect JSON format: Not object.')

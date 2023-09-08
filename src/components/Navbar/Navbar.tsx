@@ -10,7 +10,7 @@ const Container = styled.div`
 `
 
 interface Props {
-    level: level | null
+    level: Level | null
     openLevelMenu: () => void
 }
 

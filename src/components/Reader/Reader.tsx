@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { QuestionCard } from './QuestionCard'
 import { AnswerCard } from './AnswerCard'
 import { AnswerButton } from './AnswerButton'

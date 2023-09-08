@@ -4,9 +4,9 @@ import { verifyJSON } from '../utils/verifyJSON'
 import { formatSentenceArray } from '../utils/formatSentenceArray'
 
 export async function postOpenAI(
-    level: level,
-    questionLang: lang,
-    answerLang: lang
+    level: Level,
+    questionLang: Lang,
+    answerLang: Lang
 ): Promise<Sentence[] | null> {
     const baseURL = '/api/openAI?'
     const queryParams = {

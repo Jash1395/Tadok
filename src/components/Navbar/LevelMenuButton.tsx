@@ -43,7 +43,7 @@ const Text = styled.p`
 `
 
 interface Props {
-    level: level
+    level: Level
     openLevelMenu: () => void
 }
 

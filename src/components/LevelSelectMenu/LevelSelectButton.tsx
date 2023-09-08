@@ -49,9 +49,9 @@ const DescriptionText = styled.p`
 `
 
 interface Props {
-    level: level
+    level: Level
     isClickDisabled: boolean
-    setLevel: (level: level) => void
+    setLevel: (level: Level) => void
     disableClicking: () => void
 }
 

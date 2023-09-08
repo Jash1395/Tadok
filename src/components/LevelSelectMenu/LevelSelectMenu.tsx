@@ -27,7 +27,7 @@ const Title = styled.p`
 `
 
 interface Props {
-    setLevel: (level: level) => void
+    setLevel: (level: Level) => void
 }
 
 export const LevelSelectMenu = ({ setLevel }: Props) => {

@@ -28,7 +28,7 @@ function getRandomTense() {
     return tense[randomIndex]
 }
 
-export const buildPrompt = (level: level): PromptData => {
+export const buildPrompt = (level: Level): PromptData => {
     const seedWord = getRandomWord(wordlists[level])
     const tense = getRandomTense()
     console.log(seedWord.word, tense, seedWord.definition)
