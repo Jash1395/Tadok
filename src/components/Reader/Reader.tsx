@@ -119,7 +119,7 @@ export const Reader = ({ level }: Props) => {
                 showTranslation={showTranslation}
             />
             <AnswerButton
-                currentSentence={sentenceList[0] || ''}
+                currentSentence={sentenceList[0]}
                 isLoading={isLoading}
                 flashAnswer={flashAnswer}
                 getNextSentence={goToNextSentence}

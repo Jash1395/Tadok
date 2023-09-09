@@ -1,3 +1,17 @@
+// Zustand / state
+interface State extends StatsState, PlaceholderState {}
+
+interface StatsState {
+    sentenceCount: number
+    incSentenceCount: () => void
+}
+
+interface PlaceholderState {
+    placeholderCount: number
+    increment: () => void
+}
+
+// App / sentences
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 type Difficulty = 'hard' | 'okay' | 'easy'
 type Lang = 'english' | 'korean'
@@ -8,10 +22,6 @@ interface Sentence {
     inputs: Inputs
 }
 
-// interface SentenceText {
-
-// }
-
 interface Card {}
 
 interface SentenceList {
@@ -19,7 +29,6 @@ interface SentenceList {
 }
 
 // OPENAI
-
 interface WordEntry {
     word: string
     definition: string

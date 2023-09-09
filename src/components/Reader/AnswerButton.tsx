@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useStore } from '../../state/store'
 
 const Container = styled.div`
     width: 100%;
@@ -83,13 +84,16 @@ export const AnswerButton = ({
     flashAnswer,
     getNextSentence,
 }: Props) => {
-    const sendAnswerData = (difficulty: Difficulty) => {
-        console.log(difficulty, currentSentence)
+    const { sentenceCount, incSentenceCount } = useStore((state) => state.stats)
+
+    const saveAnswerData = (difficulty: Difficulty) => {
+        incSentenceCount()
+        console.log(difficulty, currentSentence, sentenceCount)
     }
 
     const handleClick = (difficulty: Difficulty) => {
         flashAnswer(difficulty)
-        sendAnswerData(difficulty)
+        saveAnswerData(difficulty)
         getNextSentence()
     }
 
