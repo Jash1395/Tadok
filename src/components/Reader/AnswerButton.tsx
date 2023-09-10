@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import { useStore } from '../../state/store'
+import '../../themes.css'
 
 const Container = styled.div`
     width: 100%;
     height: 4.6rem;
-    background-color: #202020;
+    background-color: var(--answer-button-bg);
     display: flex;
     align-items: center;
 `

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 import { LevelSelectButton } from './LevelSelectButton'
+import '../../themes.css'
 
 const Container = styled.div`
     flex: 1;
@@ -22,6 +23,7 @@ const ButtonContainer = styled.div`
 
 const Title = styled.p`
     margin-top: 3.6rem;
+    color: var(--card-text);
     font-size: 1.2rem;
     font-weight: 600;
 `

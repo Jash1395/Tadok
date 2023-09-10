@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import { buttonPress, levelColors } from '../../styles'
 import { useStore } from '../../state/store'
+import '../../themes.css'
 
 const Button = styled.button<{
     $backgroundColor: string
@@ -15,6 +16,7 @@ const Button = styled.button<{
     border-radius: 0.3rem;
     box-shadow: 2px 2px 8px -3px #6060607d;
     background-color: ${(props) => props.$backgroundColor};
+    color: var(--card-text);
     border-left: 6px solid ${(props) => props.$borderColor};
     opacity: ${(props) => (props.$isHidden ? 0 : 1)};
     transform: ${(props) => (props.$isSelected ? 'scale(1.10)' : 'scale(1)')};
@@ -61,7 +63,15 @@ export const LevelSelectButton = ({
     disableClicking,
 }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
+    const [backgroundColor, setBackroundColor] = useState<string>('red')
     const { setLevel } = useStore((state) => state.user)
+
+    useLayoutEffect(() => {
+        const root = document.documentElement
+        const themeColor = getComputedStyle(root).getPropertyValue('--card-bg')
+        console.log(themeColor)
+        setBackroundColor(themeColor)
+    }, [])
 
     const levelDescriptions = {
         A1: 'Beginner',
@@ -88,7 +98,9 @@ export const LevelSelectButton = ({
             $isHidden={isClickDisabled && !isSelected}
             $isSelected={isSelected}
             $hoverColor={levelColors.weak[level]}
-            $backgroundColor={isSelected ? levelColors.weak[level] : 'white'}
+            $backgroundColor={
+                isSelected ? levelColors.weak[level] : 'var(--card-bg)'
+            }
             $borderColor={levelColors.full[level]}
             onClick={handleClick}
         >

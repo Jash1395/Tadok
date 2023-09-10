@@ -3,12 +3,14 @@ import { Navbar } from './components/Navbar/Navbar'
 import { Reader } from './components/Reader/Reader'
 import { LevelSelectMenu } from './components/LevelSelectMenu/LevelSelectMenu'
 import { useStore } from './state/store'
+import { useState, useEffect } from 'react'
+import './themes.css'
 
 const Container = styled.div`
     flex: 1;
     width: 100%;
     height: 100%;
-    background-color: #f3f3f3;
+    background-color: var(--primary);
     display: flex;
     flex-direction: column;
     align-items: center;

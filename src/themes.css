@@ -1,0 +1,23 @@
+/* themes */
+:root {
+    --one: #00405f;
+    --two: #ffd700;
+}
+
+:root[data-theme='light'] {
+    --primary: #f3f3f3;
+    --secondary: white;
+
+    --card-text: #202020;
+    --card-bg: white;
+    --answer-button-bg: #202020;
+}
+
+:root[data-theme='dark'] {
+    --primary: #202020;
+    --secondary: #0c0c0c;
+
+    --card-text: #f3f3f3;
+    --card-bg: #141414;
+    --answer-button-bg: #141414;
+}

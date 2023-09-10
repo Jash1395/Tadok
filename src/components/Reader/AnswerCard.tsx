@@ -1,11 +1,12 @@
 import styled from 'styled-components'
+import '../../themes.css'
 
 const Container = styled.div<{ $visibility: string; $text: string }>`
     padding: 1rem;
     width: calc(92% - 2rem);
     height: 12rem;
-    background-color: white;
-    color: #202020;
+    background-color: var(--card-bg);
+    color: var(--card-text);
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;
     visibility: ${(props) => props.$visibility};

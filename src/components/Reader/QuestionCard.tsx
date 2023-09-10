@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components'
 import { LoadingSpinner } from '../common/Loading'
+import '../../themes.css'
 
 const flashAnimation = (color: string) => keyframes`
   0% {
@@ -19,7 +20,7 @@ const Container = styled.div<{
     padding: 1rem;
     width: calc(92% - 2rem);
     height: 12rem;
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;
 
@@ -36,7 +37,7 @@ const Container = styled.div<{
 `
 
 const Text = styled.p<{ $text: string }>`
-    color: #202020;
+    color: var(--card-text);
 
     // this scales the font size down for longer sentences,
     // while not making it too short for very long sentences
