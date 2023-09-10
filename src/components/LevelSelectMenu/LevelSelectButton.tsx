@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState, useLayoutEffect } from 'react'
+import { useState } from 'react'
 import { buttonPress, levelColors } from '../../styles'
 import { useStore } from '../../state/store'
 import '../../themes.css'
@@ -63,15 +63,7 @@ export const LevelSelectButton = ({
     disableClicking,
 }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
-    const [backgroundColor, setBackroundColor] = useState<string>('red')
     const { setLevel } = useStore((state) => state.user)
-
-    useLayoutEffect(() => {
-        const root = document.documentElement
-        const themeColor = getComputedStyle(root).getPropertyValue('--card-bg')
-        console.log(themeColor)
-        setBackroundColor(themeColor)
-    }, [])
 
     const levelDescriptions = {
         A1: 'Beginner',
