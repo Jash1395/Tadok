@@ -26,11 +26,9 @@ const Title = styled.p`
     font-weight: 600;
 `
 
-interface Props {
-    setLevel: (level: Level) => void
-}
+interface Props {}
 
-export const LevelSelectMenu = ({ setLevel }: Props) => {
+export const LevelSelectMenu = ({}: Props) => {
     const [isClickDisabled, setIsClickDisabled] = useState<boolean>(false)
 
     const disableClicking = () => {
@@ -43,37 +41,31 @@ export const LevelSelectMenu = ({ setLevel }: Props) => {
             <ButtonContainer>
                 <LevelSelectButton
                     level="A1"
-                    setLevel={setLevel}
                     isClickDisabled={isClickDisabled}
                     disableClicking={disableClicking}
                 />
                 <LevelSelectButton
                     level="A2"
-                    setLevel={setLevel}
                     isClickDisabled={isClickDisabled}
                     disableClicking={disableClicking}
                 />
                 <LevelSelectButton
                     level="B1"
-                    setLevel={setLevel}
                     isClickDisabled={isClickDisabled}
                     disableClicking={disableClicking}
                 />
                 <LevelSelectButton
                     level="B2"
-                    setLevel={setLevel}
                     isClickDisabled={isClickDisabled}
                     disableClicking={disableClicking}
                 />
                 <LevelSelectButton
                     level="C1"
-                    setLevel={setLevel}
                     isClickDisabled={isClickDisabled}
                     disableClicking={disableClicking}
                 />
                 <LevelSelectButton
                     level="C2"
-                    setLevel={setLevel}
                     isClickDisabled={isClickDisabled}
                     disableClicking={disableClicking}
                 />

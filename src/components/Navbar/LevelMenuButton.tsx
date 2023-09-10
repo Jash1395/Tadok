@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 import { buttonPress, levelColors } from '../../styles'
+import { useStore } from '../../state/store'
 
 const Button = styled.button<{
     $backgroundColor: string
@@ -44,11 +45,15 @@ const Text = styled.p`
 
 interface Props {
     level: Level
-    openLevelMenu: () => void
 }
 
-export const LevelMenuButton = ({ level, openLevelMenu }: Props) => {
+export const LevelMenuButton = ({ level }: Props) => {
     const [isClickDisabled, setIsClickDisabled] = useState(false)
+    const { setLevel } = useStore((state) => state.user)
+
+    const openLevelMenu = () => {
+        setLevel(null)
+    }
 
     const handleClick = () => {
         if (!isClickDisabled) {

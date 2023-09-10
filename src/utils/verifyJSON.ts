@@ -8,7 +8,7 @@ export const verifyJSON = (
         return false
     }
 
-    // Check the structure of each sentence object
+    // check the structure of each sentence object
     for (const sentence of sentences) {
         if (
             typeof sentence !== 'object' ||

@@ -1,8 +1,8 @@
 import { styled } from 'styled-components'
-import { useState } from 'react'
 import { Navbar } from './components/Navbar/Navbar'
 import { Reader } from './components/Reader/Reader'
 import { LevelSelectMenu } from './components/LevelSelectMenu/LevelSelectMenu'
+import { useStore } from './state/store'
 
 const Container = styled.div`
     flex: 1;
@@ -16,21 +16,13 @@ const Container = styled.div`
 `
 
 const App = () => {
-    const [level, setLevel] = useState<Level | null>(null)
-
-    const openLevelMenu = () => {
-        setLevel(null)
-    }
+    const { level } = useStore((state) => state.user)
 
     return (
         <>
-            <Navbar level={level} openLevelMenu={openLevelMenu} />
+            <Navbar level={level} />
             <Container>
-                {level ? (
-                    <Reader level={level} />
-                ) : (
-                    <LevelSelectMenu setLevel={setLevel} />
-                )}
+                {level ? <Reader level={level} /> : <LevelSelectMenu />}
             </Container>
         </>
     )

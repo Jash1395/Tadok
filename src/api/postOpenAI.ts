@@ -27,19 +27,19 @@ export async function postOpenAI(
     } catch (error: any) {
         if (axios.isAxiosError(error)) {
             if (error.response) {
-                // The request was made, but the server responded with an error status code
+                // the request was made, but the server responded with an error status code
                 throw {
                     status: error.response.status,
                     data: error.response.data,
                 }
             } else {
-                // Something happened while setting up the request
+                // something happened while setting up the request
                 throw {
                     message: 'Axios Error: ' + error.message,
                 }
             }
         } else {
-            // Non-Axios error (e.g., network error)
+            // non-Axios error (e.g., network error)
             throw {
                 message: 'Error: ' + error.message,
             }

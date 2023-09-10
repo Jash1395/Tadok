@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 import { buttonPress, levelColors } from '../../styles'
+import { useStore } from '../../state/store'
 
 const Button = styled.button<{
     $backgroundColor: string
@@ -51,7 +52,6 @@ const DescriptionText = styled.p`
 interface Props {
     level: Level
     isClickDisabled: boolean
-    setLevel: (level: Level) => void
     disableClicking: () => void
 }
 
@@ -59,9 +59,9 @@ export const LevelSelectButton = ({
     level,
     isClickDisabled,
     disableClicking,
-    setLevel,
 }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
+    const { setLevel } = useStore((state) => state.user)
 
     const levelDescriptions = {
         A1: 'Beginner',

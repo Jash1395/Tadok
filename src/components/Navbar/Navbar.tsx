@@ -11,15 +11,8 @@ const Container = styled.div`
 
 interface Props {
     level: Level | null
-    openLevelMenu: () => void
 }
 
-export const Navbar = ({ level, openLevelMenu }: Props) => {
-    return (
-        <Container>
-            {level && (
-                <LevelMenuButton level={level} openLevelMenu={openLevelMenu} />
-            )}
-        </Container>
-    )
+export const Navbar = ({ level }: Props) => {
+    return <Container>{level && <LevelMenuButton level={level} />}</Container>
 }

@@ -73,6 +73,7 @@ const EasyButton = styled(DifficultyButton)`
 `
 interface Props {
     currentSentence: Sentence | undefined
+    startUnixTime: number | undefined
     isLoading: boolean
     flashAnswer: (difficulty: Difficulty) => void
     getNextSentence: () => void
@@ -80,20 +81,51 @@ interface Props {
 
 export const AnswerButton = ({
     currentSentence,
+    startUnixTime,
     isLoading,
     flashAnswer,
     getNextSentence,
 }: Props) => {
-    const { sentenceCount, incSentenceCount } = useStore((state) => state.stats)
+    const {
+        totalTime,
+        sentenceCount,
+        sentenceHistory,
+        wordList,
+        incSentenceCount,
+        addTotalTime,
+        addWordList,
+        addSentenceHistory,
+    } = useStore((state) => state.stats)
+    const { durationCutoff, level } = useStore((state) => state.user)
+
+    const calcDuration = (): number => {
+        // return 0 in the case that time cannot be calculated
+        // this is better than not sending the card data / sending incomplete data
+        if (!startUnixTime) {
+            console.error('startTime not set')
+            return 0
+        }
+
+        const currentUnixTime = Date.now()
+        const duration = currentUnixTime - startUnixTime
+
+        if (duration > durationCutoff) return durationCutoff
+        return duration
+    }
 
     const saveAnswerData = (difficulty: Difficulty) => {
+        console.log(totalTime, sentenceCount, wordList, sentenceHistory)
+        if (!currentSentence || !level) return
+        const duration = calcDuration()
         incSentenceCount()
-        console.log(difficulty, currentSentence, sentenceCount)
+        addTotalTime(duration)
+        addWordList(currentSentence.inputs.seedWord.word, difficulty)
+        addSentenceHistory(currentSentence, duration, difficulty, level)
     }
 
     const handleClick = (difficulty: Difficulty) => {
-        flashAnswer(difficulty)
         saveAnswerData(difficulty)
+        flashAnswer(difficulty)
         getNextSentence()
     }
 

@@ -42,6 +42,7 @@ export const Reader = ({ level }: Props) => {
     const [isFlashAnswer, setIsFlashAnswer] = useState<Difficulty | false>(
         false
     )
+    const [startUnixTime, setStartUnixTime] = useState<number | undefined>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
 
@@ -56,8 +57,16 @@ export const Reader = ({ level }: Props) => {
             setIsLoading(true)
         } else {
             setIsLoading(false)
+            setError(false)
         }
     }, [sentenceList.length])
+
+    useEffect(() => {
+        if (!sentenceList[0]) return
+        console.log('resetTimer')
+        const currentUnixTime = Date.now()
+        setStartUnixTime(currentUnixTime)
+    }, [sentenceList[0], isLoading, error])
 
     const flashAnswer = (difficulty: Difficulty) => {
         // toggle isFlashAnswer to reset any active animations
@@ -71,8 +80,7 @@ export const Reader = ({ level }: Props) => {
         try {
             const sentences = await postOpenAI(level, 'korean', 'english')
             if (!sentences) {
-                console.error('Failed to fetch sentences.')
-                return
+                throw Error('Failed to fetch sentences.')
             }
             appendSentenceList(sentences)
         } catch (error) {
@@ -120,6 +128,7 @@ export const Reader = ({ level }: Props) => {
             />
             <AnswerButton
                 currentSentence={sentenceList[0]}
+                startUnixTime={startUnixTime}
                 isLoading={isLoading}
                 flashAnswer={flashAnswer}
                 getNextSentence={goToNextSentence}
