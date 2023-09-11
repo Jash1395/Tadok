@@ -43,10 +43,31 @@ interface Answer<T, U> {
     hard: U
 }
 
-// this type is needed to remove the 'set' function from Zustand
-type SetState<S> = <R extends keyof S>(
-    updateFunction: (state: Pick<S, R>) => Partial<S>
-) => void
+// Zustand internal
+type SetStateInternal<T> = {
+    _(
+        partial:
+            | T
+            | Partial<T>
+            | {
+                  _(state: T): T | Partial<T>
+              }['_'],
+        replace?: boolean | undefined
+    ): void
+}['_']
+
+interface StoreApi<T> {
+    setState: SetStateInternal<T>
+    getState: () => T
+    subscribe: (listener: (state: T, prevState: T) => void) => () => void
+    /**
+     * @deprecated Use `unsubscribe` returned by `subscribe`
+     */
+    destroy: () => void
+}
+
+type SetState = SetStateInternal<T>
+type GetState = StoreApi<T>['getState']
 
 // App / General
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
