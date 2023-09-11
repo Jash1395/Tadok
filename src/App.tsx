@@ -3,7 +3,6 @@ import { Navbar } from './components/Navbar/Navbar'
 import { Reader } from './components/Reader/Reader'
 import { LevelSelectMenu } from './components/LevelSelectMenu/LevelSelectMenu'
 import { useStore } from './state/store'
-import { useState, useEffect } from 'react'
 import './themes.css'
 
 const Container = styled.div`

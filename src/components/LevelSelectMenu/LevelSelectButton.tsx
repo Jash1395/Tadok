@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import { useState, useLayoutEffect } from 'react'
-import { buttonPress, levelColors } from '../../styles'
+import { useState } from 'react'
+import { levelColors } from '../../styles'
 import { useStore } from '../../state/store'
+import { DelayedButton } from '../common/DelayedButton'
 import '../../themes.css'
 
-const Button = styled.button<{
+const Button = styled(DelayedButton)<{
     $backgroundColor: string
-    $hoverColor: string
     $borderColor: string
     $isHidden: boolean
     $isSelected: boolean
@@ -24,18 +24,7 @@ const Button = styled.button<{
         opacity 0.09s ease-in,
         transform 0.11s ease-in,
         background-color 0.2s ease-in-out;
-    @media (hover: hover) {
-        &:hover {
-            background-color: ${(props) => props.$hoverColor};
-        }
-    }
-    ${buttonPress}
-    &:active {
-        transition: background-color 0.2s ease-in;
-    }
-
-    display: flex;
-    align-items: center;
+    cursor: ${(props) => `${props.$isHidden ? 'default' : ''}`};
 `
 
 const LevelText = styled.p`
@@ -63,15 +52,7 @@ export const LevelSelectButton = ({
     disableClicking,
 }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
-    const [backgroundColor, setBackroundColor] = useState<string>('red')
     const { setLevel } = useStore((state) => state.user)
-
-    useLayoutEffect(() => {
-        const root = document.documentElement
-        const themeColor = getComputedStyle(root).getPropertyValue('--card-bg')
-        console.log(themeColor)
-        setBackroundColor(themeColor)
-    }, [])
 
     const levelDescriptions = {
         A1: 'Beginner',
@@ -82,27 +63,29 @@ export const LevelSelectButton = ({
         C2: 'Proficient',
     }
 
-    const handleClick = () => {
-        if (!isClickDisabled) {
-            setIsSelected(true)
-            disableClicking()
+    const handleClickInstant = () => {
+        if (isClickDisabled) return
+        setIsSelected(true)
+        disableClicking()
+    }
 
-            setTimeout(() => {
-                setLevel(level)
-            }, 500)
-        }
+    const handleClickDelay = () => {
+        if (isClickDisabled) return
+        setLevel(level)
     }
 
     return (
         <Button
+            onClickInstant={handleClickInstant}
+            onClickDelay={handleClickDelay}
+            delay={700}
+            hoverColor={levelColors.weak[level]}
             $isHidden={isClickDisabled && !isSelected}
             $isSelected={isSelected}
-            $hoverColor={levelColors.weak[level]}
             $backgroundColor={
                 isSelected ? levelColors.weak[level] : 'var(--card-bg)'
             }
             $borderColor={levelColors.full[level]}
-            onClick={handleClick}
         >
             <LevelText>{`${level}`}</LevelText>
             <DescriptionText>{levelDescriptions[level]}</DescriptionText>

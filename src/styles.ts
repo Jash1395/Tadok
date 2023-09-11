@@ -27,6 +27,12 @@ export const levelColors = {
     },
 }
 
+// delay used for navigation buttons (ms)
+export const buttonDelay = 200
+
+// delay for theme switching i.e. dark/light mode (ms)
+export const themeDelay = 300
+
 export const buttonPress = css`
     &:active {
         transform: scale(0.96);
