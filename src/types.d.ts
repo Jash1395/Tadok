@@ -18,7 +18,9 @@ interface StatsState {
 interface UserState {
     durationCutoff: number
     level: Level | null
+    theme: Theme
     setLevel: (level: Level | null) => void
+    setTheme: () => void
 }
 
 interface SentenceHistoryEntry {

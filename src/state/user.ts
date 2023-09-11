@@ -1,12 +1,18 @@
 import { lens } from '@dhmk/zustand-lens'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-const userStateStore = (set: SetState<UserState>): UserState => ({
+const userStateStore = (set: SetState<UserState>, get): UserState => ({
     // milliseconds
     durationCutoff: 30000,
     level: null,
+    theme: 'light',
 
     setLevel: (level: Level | null) => set(() => ({ level: level })),
+    setTheme: () => {
+        const newTheme = get().theme === 'light' ? 'dark' : 'light'
+        document.documentElement.dataset.theme = newTheme
+        set(() => ({ theme: newTheme }))
+    },
 })
 
 export const userSlice: UserState = lens(
