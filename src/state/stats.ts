@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { newWordList } from '../utils/newWordList'
 import { newSentenceHistory } from '../utils/newSentenceHistory'
 
-const statsStateStore = (set: SetState<StatsState>): StatsState => ({
+const statsStateStore = (set: SetState): StatsState => ({
     sentenceHistory: [],
     wordList: [],
     sentenceCount: 0,
