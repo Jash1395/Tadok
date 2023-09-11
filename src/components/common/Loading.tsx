@@ -16,13 +16,13 @@ const Container = styled.div`
     }
 
     .m13c1 {
-        background-color: #00405f;
+        background-color: var(--one);
         -webkit-animation: m13s1anim 3s infinite linear;
         animation: m13s1anim 3s infinite linear;
     }
 
     .m13c2 {
-        background-color: #ffd700;
+        background-color: var(--two);
         -webkit-animation: m13s2anim 3s infinite linear;
         animation: m13s2anim 3s infinite linear;
     }

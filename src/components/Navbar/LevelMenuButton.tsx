@@ -1,31 +1,14 @@
 import styled from 'styled-components'
-import { useState } from 'react'
-import { buttonPress, levelColors } from '../../styles'
+import { levelColors } from '../../styles'
 import { useStore } from '../../state/store'
+import { NavbarButton } from '../common/NavbarButton'
 
-const Button = styled.button<{
-    $backgroundColor: string
-}>`
+const Button = styled(NavbarButton)`
     margin-left: 0.5rem;
     width: 6.2rem;
     height: 2.6rem;
     border-radius: 0.4rem;
-    color: white;
-    /* background-color: ; */
-    /* border-bottom: 1px solid ${(props) => props.$backgroundColor}; */
-    box-shadow: 1px 1px 3px 1px #002d44;
-    text-shadow: 1px 1px 2px #606060;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease-in-out;
-    @media (hover: hover) {
-        &:hover {
-            background-color: #005783;
-        }
-    }
-    ${buttonPress}
 `
 const Circle = styled.div<{
     $backgroundColor: string
@@ -48,28 +31,14 @@ interface Props {
 }
 
 export const LevelMenuButton = ({ level }: Props) => {
-    const [isClickDisabled, setIsClickDisabled] = useState(false)
     const { setLevel } = useStore((state) => state.user)
 
     const openLevelMenu = () => {
         setLevel(null)
     }
 
-    const handleClick = () => {
-        if (!isClickDisabled) {
-            setIsClickDisabled(true)
-
-            setTimeout(() => {
-                openLevelMenu()
-                setIsClickDisabled(false)
-            }, 200)
-        }
-    }
     return (
-        <Button
-            $backgroundColor={levelColors.strong[level]}
-            onClick={handleClick}
-        >
+        <Button onClick={openLevelMenu}>
             <Text>Level:</Text>
             {level}
             <Circle $backgroundColor={levelColors.full[level]} />
