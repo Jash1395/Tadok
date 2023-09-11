@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { levelColors } from '../../styles'
-import { useStore } from '../../state/store'
+import { useStore } from '../../hooks/useStore'
 import { NavbarButton } from '../common/NavbarButton'
 
 const Button = styled(NavbarButton)`
@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const LevelMenuButton = ({ level }: Props) => {
-    const { setLevel } = useStore((state) => state.user)
+    const { setLevel } = useStore()
 
     const openLevelMenu = () => {
         setLevel(null)

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 import { levelColors } from '../../styles'
-import { useStore } from '../../state/store'
+import { useStore } from '../../hooks/useStore'
 import { DelayedButton } from '../common/DelayedButton'
 import '../../themes.css'
 
@@ -52,7 +52,7 @@ export const LevelSelectButton = ({
     disableClicking,
 }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
-    const { setLevel } = useStore((state) => state.user)
+    const { setLevel } = useStore()
 
     const levelDescriptions = {
         A1: 'Beginner',

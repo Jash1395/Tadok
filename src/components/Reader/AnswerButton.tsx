@@ -1,13 +1,13 @@
 import styled from 'styled-components'
-import { useStore } from '../../state/store'
+import { useStore } from '../../hooks/useStore'
 import '../../themes.css'
 
 const Container = styled.div`
     width: 100%;
     height: 4.6rem;
-    background-color: var(--answer-button-bg);
     display: flex;
     align-items: center;
+    background-color: var(--answer-button-bg);
 `
 
 const DifficultyButton = styled.button`
@@ -88,16 +88,16 @@ export const AnswerButton = ({
     getNextSentence,
 }: Props) => {
     const {
-        totalTime,
-        sentenceCount,
-        sentenceHistory,
-        wordList,
+        // totalTime,
+        // sentenceCount,
+        // sentenceHistory,
+        // wordList,
         incSentenceCount,
         addTotalTime,
         addWordList,
         addSentenceHistory,
-    } = useStore((state) => state.stats)
-    const { durationCutoff, level } = useStore((state) => state.user)
+    } = useStore()
+    const { durationCutoff, level } = useStore()
 
     const calcDuration = (): number => {
         // return 0 in the case that time cannot be calculated
@@ -115,7 +115,7 @@ export const AnswerButton = ({
     }
 
     const saveAnswerData = (difficulty: Difficulty) => {
-        console.log(totalTime, sentenceCount, wordList, sentenceHistory)
+        // console.log(totalTime, sentenceCount, wordList, sentenceHistory)
         if (!currentSentence || !level) return
         const duration = calcDuration()
         incSentenceCount()

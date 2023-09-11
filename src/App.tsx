@@ -2,7 +2,8 @@ import { styled } from 'styled-components'
 import { Navbar } from './components/Navbar/Navbar'
 import { Reader } from './components/Reader/Reader'
 import { LevelSelectMenu } from './components/LevelSelectMenu/LevelSelectMenu'
-import { useStore } from './state/store'
+import { useStore } from './hooks/useStore'
+import { useInitialTheme } from './hooks/useInitialTheme'
 import './themes.css'
 
 const Container = styled.div`
@@ -17,7 +18,8 @@ const Container = styled.div`
 `
 
 const App = () => {
-    const { level } = useStore((state) => state.user)
+    const { level } = useStore()
+    useInitialTheme()
 
     return (
         <>

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Classic } from '@theme-toggles/react'
 import { themeDelay } from '../../styles'
-import { useStore } from '../../state/store'
+import { useStore } from '../../hooks/useStore'
 import '@theme-toggles/react/css/Classic.css'
 
 const Button = styled(Classic)<{ $color: string }>`
@@ -19,7 +19,7 @@ const Button = styled(Classic)<{ $color: string }>`
 interface Props {}
 
 export const ThemeButton = ({}: Props) => {
-    const { theme, setTheme } = useStore((state) => state.user)
+    const { theme, toggleTheme } = useStore()
     const color = `${theme === 'dark' ? 'yellow' : 'orange'}`
 
     // applies or removes transition to ALL elements
@@ -37,7 +37,7 @@ export const ThemeButton = ({}: Props) => {
         const allElements = Array.from(document.getElementsByTagName('*'))
 
         toggleTransition(allElements, true)
-        setTheme()
+        toggleTheme()
 
         setTimeout(() => {
             toggleTransition(allElements, false)

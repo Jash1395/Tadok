@@ -20,7 +20,8 @@ interface UserState {
     level: Level | null
     theme: Theme
     setLevel: (level: Level | null) => void
-    setTheme: () => void
+    setTheme: (theme: Theme) => void
+    toggleTheme: () => void
 }
 
 interface SentenceHistoryEntry {
@@ -60,9 +61,6 @@ interface StoreApi<T> {
     setState: SetStateInternal<T>
     getState: () => T
     subscribe: (listener: (state: T, prevState: T) => void) => () => void
-    /**
-     * @deprecated Use `unsubscribe` returned by `subscribe`
-     */
     destroy: () => void
 }
 
