@@ -1,6 +1,5 @@
 import { lens } from '@dhmk/zustand-lens'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import 'node_modules/zustand/vanilla.d.ts'
 
 const userStateStore = (set: SetState, get: GetState): UserState => ({
     // milliseconds
