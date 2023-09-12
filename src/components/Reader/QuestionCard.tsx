@@ -52,20 +52,18 @@ const Text = styled.p<{ $text: string }>`
 `
 
 interface Props {
-    sentenceList: Sentence[]
+    currentSentence: Sentence | undefined
     isFlashAnswer: Difficulty | false
     isLoading: boolean
 }
 
 export const QuestionCard = ({
-    sentenceList,
+    currentSentence,
     isFlashAnswer,
     isLoading,
 }: Props) => {
     const text =
-        sentenceList.length > 0
-            ? sentenceList[0].questionLang
-            : 'Failed to fetch sentnces.'
+        currentSentence?.['questionLang'] || 'Failed to fetch sentnces.'
 
     const flashColor =
         isFlashAnswer &&

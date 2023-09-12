@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useStore } from '../../hooks/useStore'
 import '../../themes.css'
+import { useAnswerTimer } from '../../hooks/useAnswerTimer'
 
 const Container = styled.div`
     width: 100%;
@@ -74,15 +75,13 @@ const EasyButton = styled(DifficultyButton)`
 `
 interface Props {
     currentSentence: Sentence | undefined
-    startUnixTime: number | undefined
     isLoading: boolean
     flashAnswer: (difficulty: Difficulty) => void
     getNextSentence: () => void
 }
 
-export const AnswerButton = ({
+export const AnswerButtons = ({
     currentSentence,
-    startUnixTime,
     isLoading,
     flashAnswer,
     getNextSentence,
@@ -98,7 +97,7 @@ export const AnswerButton = ({
         addSentenceHistory,
     } = useStore()
     const { durationCutoff, level } = useStore()
-
+    const startUnixTime = useAnswerTimer(currentSentence)
     const calcDuration = (): number => {
         // return 0 in the case that time cannot be calculated
         // this is better than not sending the card data / sending incomplete data

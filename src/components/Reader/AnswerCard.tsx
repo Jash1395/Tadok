@@ -36,33 +36,26 @@ const BoldText = styled.p`
 `
 
 interface Props {
-    sentenceList: Sentence[]
+    currentSentence: Sentence | undefined
     isTranslationVisible: boolean
     isLoading: boolean
 }
 
 export const AnswerCard = ({
-    sentenceList,
+    currentSentence,
     isTranslationVisible,
     isLoading,
 }: Props) => {
-    if (sentenceList.length < 1) {
-        return <Container $text={''} $visibility={'hidden'} />
-    }
-
-    const text = sentenceList[0].answerLang
-    const seedWord = sentenceList[0].inputs.seedWord
+    const isVisibile = currentSentence && isTranslationVisible && !isLoading
+    const text = currentSentence?.['answerLang'] || ''
+    const word = currentSentence?.inputs.seedWord.word || ''
+    const definition = currentSentence?.inputs.seedWord.definition || ''
 
     return (
-        <Container
-            $text={text}
-            $visibility={
-                isTranslationVisible && !isLoading ? 'visible' : 'hidden'
-            }
-        >
+        <Container $text={text} $visibility={isVisibile ? 'visible' : 'hidden'}>
             <BoldText>{text}</BoldText>
-            <Text>{seedWord.word}</Text>
-            <Text>{seedWord.definition}</Text>
+            <Text>{word}</Text>
+            <Text>{definition}</Text>
         </Container>
     )
 }

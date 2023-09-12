@@ -9,12 +9,12 @@ const userStateStore = (set: SetState, get: GetState): UserState => ({
 
     setLevel: (level: Level | null) => set(() => ({ level: level })),
     setTheme: (theme: Theme) => {
-        document.documentElement.dataset.theme = theme
+        document.documentElement.dataset['theme'] = theme
         set(() => ({ theme: theme }))
     },
     toggleTheme: () => {
         const otherTheme = get().theme === 'light' ? 'dark' : 'light'
-        document.documentElement.dataset.theme = otherTheme
+        document.documentElement.dataset['theme'] = otherTheme
         set(() => ({ theme: otherTheme }))
     },
 })

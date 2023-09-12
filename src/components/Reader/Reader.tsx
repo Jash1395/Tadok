@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { QuestionCard } from './QuestionCard'
 import { AnswerCard } from './AnswerCard'
-import { AnswerButton } from './AnswerButton'
+import { AnswerButtons } from './AnswerButtons'
 import { ShowTranslationButton } from './ShowTranslationButton'
 import { postOpenAI } from '../../api/postOpenAI'
 
@@ -42,7 +42,7 @@ export const Reader = ({ level }: Props) => {
     const [isFlashAnswer, setIsFlashAnswer] = useState<Difficulty | false>(
         false
     )
-    const [startUnixTime, setStartUnixTime] = useState<number | undefined>()
+    // const [startUnixTime, setStartUnixTime] = useState<number | undefined>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
 
@@ -61,21 +61,6 @@ export const Reader = ({ level }: Props) => {
         }
     }, [sentenceList.length])
 
-    useEffect(() => {
-        if (!sentenceList[0]) return
-        console.log('resetTimer')
-        const currentUnixTime = Date.now()
-        setStartUnixTime(currentUnixTime)
-    }, [sentenceList[0], isLoading, error])
-
-    const flashAnswer = (difficulty: Difficulty) => {
-        // toggle isFlashAnswer to reset any active animations
-        setIsFlashAnswer(false)
-        setTimeout(() => {
-            setIsFlashAnswer(difficulty)
-        }, 1)
-    }
-
     const fetchSentences = async (level: Level) => {
         try {
             const sentences = await postOpenAI(level, 'korean', 'english')
@@ -85,8 +70,17 @@ export const Reader = ({ level }: Props) => {
             appendSentenceList(sentences)
         } catch (error) {
             console.error('Error:', error)
+            if (sentenceList.length > 0) return
             setError(error)
         }
+    }
+
+    const flashAnswer = (difficulty: Difficulty) => {
+        // toggle isFlashAnswer to reset any active animations
+        setIsFlashAnswer(false)
+        setTimeout(() => {
+            setIsFlashAnswer(difficulty)
+        }, 1)
     }
 
     const appendSentenceList = (newSentences: Sentence[]) => {
@@ -111,12 +105,12 @@ export const Reader = ({ level }: Props) => {
         <Container>
             <CardContainer>
                 <QuestionCard
-                    sentenceList={sentenceList}
+                    currentSentence={sentenceList[0]}
                     isFlashAnswer={isFlashAnswer}
                     isLoading={isLoading}
                 />
                 <AnswerCard
-                    sentenceList={sentenceList}
+                    currentSentence={sentenceList[0]}
                     isTranslationVisible={isTranslationVisible}
                     isLoading={isLoading}
                 />
@@ -126,9 +120,8 @@ export const Reader = ({ level }: Props) => {
                 isLoading={isLoading}
                 showTranslation={showTranslation}
             />
-            <AnswerButton
+            <AnswerButtons
                 currentSentence={sentenceList[0]}
-                startUnixTime={startUnixTime}
                 isLoading={isLoading}
                 flashAnswer={flashAnswer}
                 getNextSentence={goToNextSentence}

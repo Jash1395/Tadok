@@ -4,7 +4,7 @@ import { buildPrompt } from './buildPrompt'
 import { schema } from './schema'
 
 const openAI = new OpenAI({
-    apiKey: `${process.env.OPENAI}`,
+    apiKey: `${process.env['OPENAI']}`,
 })
 
 // models
