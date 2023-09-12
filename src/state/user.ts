@@ -1,5 +1,6 @@
 import { lens } from '@dhmk/zustand-lens'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import { setThemeDocumentRoot } from '../utils/setThemeDocumentRoot'
 
 const userStateStore = (set: SetState, get: GetState): UserState => ({
     // milliseconds
@@ -9,13 +10,13 @@ const userStateStore = (set: SetState, get: GetState): UserState => ({
 
     setLevel: (level: Level | null) => set(() => ({ level: level })),
     setTheme: (theme: Theme) => {
-        document.documentElement.dataset['theme'] = theme
         set(() => ({ theme: theme }))
+        setThemeDocumentRoot(theme)
     },
     toggleTheme: () => {
         const otherTheme = get().theme === 'light' ? 'dark' : 'light'
-        document.documentElement.dataset['theme'] = otherTheme
         set(() => ({ theme: otherTheme }))
+        setThemeDocumentRoot(otherTheme)
     },
 })
 

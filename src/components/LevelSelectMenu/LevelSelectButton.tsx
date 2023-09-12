@@ -42,15 +42,11 @@ const DescriptionText = styled.p`
 
 interface Props {
     level: Level
-    isClickDisabled: boolean
-    disableClicking: () => void
+    isDisabled: boolean
+    disable: () => void
 }
 
-export const LevelSelectButton = ({
-    level,
-    isClickDisabled,
-    disableClicking,
-}: Props) => {
+export const LevelSelectButton = ({ level, isDisabled, disable }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
     const { setLevel } = useStore()
 
@@ -64,13 +60,13 @@ export const LevelSelectButton = ({
     }
 
     const handleClickInstant = () => {
-        if (isClickDisabled) return
+        if (isDisabled) return
         setIsSelected(true)
-        disableClicking()
+        disable()
     }
 
     const handleClickDelay = () => {
-        if (isClickDisabled) return
+        if (isDisabled) return
         setLevel(level)
     }
 
@@ -80,7 +76,7 @@ export const LevelSelectButton = ({
             onClickDelay={handleClickDelay}
             delay={700}
             hoverColor={levelColors.weak[level]}
-            $isHidden={isClickDisabled && !isSelected}
+            $isHidden={isDisabled && !isSelected}
             $isSelected={isSelected}
             $backgroundColor={
                 isSelected ? levelColors.weak[level] : 'var(--card-bg)'

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { useStore } from '../../hooks/useStore'
-import '../../themes.css'
 import { useAnswerTimer } from '../../hooks/useAnswerTimer'
+import { calcAnswerDuration } from '../../utils/calcAnswerDuration'
+import '../../themes.css'
 
 const Container = styled.div`
     width: 100%;
@@ -98,25 +99,11 @@ export const AnswerButtons = ({
     } = useStore()
     const { durationCutoff, level } = useStore()
     const startUnixTime = useAnswerTimer(currentSentence)
-    const calcDuration = (): number => {
-        // return 0 in the case that time cannot be calculated
-        // this is better than not sending the card data / sending incomplete data
-        if (!startUnixTime) {
-            console.error('startTime not set')
-            return 0
-        }
-
-        const currentUnixTime = Date.now()
-        const duration = currentUnixTime - startUnixTime
-
-        if (duration > durationCutoff) return durationCutoff
-        return duration
-    }
 
     const saveAnswerData = (difficulty: Difficulty) => {
         // console.log(totalTime, sentenceCount, wordList, sentenceHistory)
         if (!currentSentence || !level) return
-        const duration = calcDuration()
+        const duration = calcAnswerDuration(startUnixTime, durationCutoff)
         incSentenceCount()
         addTotalTime(duration)
         addWordList(currentSentence.inputs.seedWord.word, difficulty)

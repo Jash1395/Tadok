@@ -31,10 +31,10 @@ const Title = styled.p`
 interface Props {}
 
 export const LevelSelectMenu = ({}: Props) => {
-    const [isClickDisabled, setIsClickDisabled] = useState<boolean>(false)
+    const [isDisabled, setIsDisabled] = useState<boolean>(false)
 
-    const disableClicking = () => {
-        setIsClickDisabled(true)
+    const disable = () => {
+        setIsDisabled(true)
     }
 
     return (
@@ -43,33 +43,33 @@ export const LevelSelectMenu = ({}: Props) => {
             <ButtonContainer>
                 <LevelSelectButton
                     level="A1"
-                    isClickDisabled={isClickDisabled}
-                    disableClicking={disableClicking}
+                    isDisabled={isDisabled}
+                    disable={disable}
                 />
                 <LevelSelectButton
                     level="A2"
-                    isClickDisabled={isClickDisabled}
-                    disableClicking={disableClicking}
+                    isDisabled={isDisabled}
+                    disable={disable}
                 />
                 <LevelSelectButton
                     level="B1"
-                    isClickDisabled={isClickDisabled}
-                    disableClicking={disableClicking}
+                    isDisabled={isDisabled}
+                    disable={disable}
                 />
                 <LevelSelectButton
                     level="B2"
-                    isClickDisabled={isClickDisabled}
-                    disableClicking={disableClicking}
+                    isDisabled={isDisabled}
+                    disable={disable}
                 />
                 <LevelSelectButton
                     level="C1"
-                    isClickDisabled={isClickDisabled}
-                    disableClicking={disableClicking}
+                    isDisabled={isDisabled}
+                    disable={disable}
                 />
                 <LevelSelectButton
                     level="C2"
-                    isClickDisabled={isClickDisabled}
-                    disableClicking={disableClicking}
+                    isDisabled={isDisabled}
+                    disable={disable}
                 />
             </ButtonContainer>
         </Container>

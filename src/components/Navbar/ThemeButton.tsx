@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Classic } from '@theme-toggles/react'
-import { themeDelay } from '../../styles'
 import { useStore } from '../../hooks/useStore'
 import '@theme-toggles/react/css/Classic.css'
 
@@ -22,33 +21,11 @@ export const ThemeButton = ({}: Props) => {
     const { theme, toggleTheme } = useStore()
     const color = `${theme === 'dark' ? 'yellow' : 'orange'}`
 
-    // applies or removes transition to ALL elements
-    const toggleTransition = (elements: Element[], isTransition: boolean) => {
-        const transition = isTransition
-            ? `background-color ${themeDelay / 1000}s ease-in-out`
-            : ''
-        elements.forEach((element) => {
-            if (!(element instanceof HTMLElement)) return
-            element.style.transition = transition
-        })
-    }
-
-    const handleClick = () => {
-        const allElements = Array.from(document.getElementsByTagName('*'))
-
-        toggleTransition(allElements, true)
-        toggleTheme()
-
-        setTimeout(() => {
-            toggleTransition(allElements, false)
-        }, themeDelay)
-    }
-
     return (
         <Button
             duration={800}
             toggled={theme === 'dark'}
-            onToggle={handleClick}
+            onToggle={toggleTheme}
             $color={color}
         />
     )

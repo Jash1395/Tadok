@@ -5,6 +5,7 @@ import { AnswerCard } from './AnswerCard'
 import { AnswerButtons } from './AnswerButtons'
 import { ShowTranslationButton } from './ShowTranslationButton'
 import { postOpenAI } from '../../api/postOpenAI'
+import { useFlashAnswer } from '../../hooks/useFlashAnswer'
 
 const Container = styled.div`
     flex: 1;
@@ -39,12 +40,9 @@ export const Reader = ({ level }: Props) => {
     const [sentenceList, setSentenceList] = useState<Sentence[]>([])
     const [isTranslationVisible, setIsTranslationVisible] =
         useState<boolean>(false)
-    const [isFlashAnswer, setIsFlashAnswer] = useState<Difficulty | false>(
-        false
-    )
-    // const [startUnixTime, setStartUnixTime] = useState<number | undefined>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
+    const { isFlashAnswer, flashAnswer } = useFlashAnswer()
 
     useEffect(() => {
         if (sentenceList.length < 10) {
@@ -73,14 +71,6 @@ export const Reader = ({ level }: Props) => {
             if (sentenceList.length > 0) return
             setError(error)
         }
-    }
-
-    const flashAnswer = (difficulty: Difficulty) => {
-        // toggle isFlashAnswer to reset any active animations
-        setIsFlashAnswer(false)
-        setTimeout(() => {
-            setIsFlashAnswer(difficulty)
-        }, 1)
     }
 
     const appendSentenceList = (newSentences: Sentence[]) => {
