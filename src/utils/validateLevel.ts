@@ -1,4 +1,4 @@
-// code coppy of src/utils/validateLevel
+// code coppy of netlify/validateLevel
 export const validateLevel = (
     unvalidatedLevel: string | undefined | null
 ): Level | undefined => {

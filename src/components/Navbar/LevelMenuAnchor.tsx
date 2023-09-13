@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import { levelColors } from '../../styles'
-import { useStore } from '../../hooks/useStore'
-import { NavbarButton } from '../common/NavbarButton'
+import { levelColors } from '../../styles/styles'
+import { NavbarAnchor } from '../common/NavbarAnchor'
 
-const Button = styled(NavbarButton)`
+const Anchor = styled(NavbarAnchor)`
     margin-left: 0.5rem;
     width: 6.2rem;
     height: 2.6rem;
@@ -30,18 +29,12 @@ interface Props {
     level: Level
 }
 
-export const LevelMenuButton = ({ level }: Props) => {
-    const { setLevel } = useStore()
-
-    const openLevelMenu = () => {
-        setLevel(null)
-    }
-
+export const LevelMenuAnchor = ({ level }: Props) => {
     return (
-        <Button onClick={openLevelMenu}>
+        <Anchor href={'/selectlevel'}>
             <Text>Level:</Text>
             {level}
             <Circle $backgroundColor={levelColors.full[level]} />
-        </Button>
+        </Anchor>
     )
 }

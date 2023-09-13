@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { LevelMenuButton } from './LevelMenuButton'
+import { LevelMenuAnchor } from './LevelMenuAnchor'
 import { ThemeButton } from './ThemeButton'
+import { useValidatedSearchParams } from '../../hooks/useValidatedSearchParams'
 
 const Container = styled.div`
     width: 100%;
@@ -11,15 +12,16 @@ const Container = styled.div`
     justify-content: space-between;
 `
 
-interface Props {
-    level: Level | null
-}
+interface Props {}
 
-export const Navbar = ({ level }: Props) => {
+export const Navbar = ({}: Props) => {
+    const { validatedSearchParams } = useValidatedSearchParams()
+    const level = validatedSearchParams['level']
+
     return (
         <Container>
             <></>
-            {level && <LevelMenuButton level={level} />}
+            {level && <LevelMenuAnchor level={level} />}
             <ThemeButton />
         </Container>
     )

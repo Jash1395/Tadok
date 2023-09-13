@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import '../../themes.css'
+import '../../styles/themes.css'
 
 const Container = styled.div<{ $visibility: string; $text: string }>`
     padding: 1rem;

@@ -10,6 +10,12 @@
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
 button,
 input[type='submit'],
 input[type='reset'] {

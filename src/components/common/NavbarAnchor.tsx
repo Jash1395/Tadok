@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { ReactNode } from 'react'
-import { DelayedButton } from './DelayedButton'
+import { DelayedAnchor } from './DelayedAnchor'
 
-const Button = styled(DelayedButton)`
+const Anchor = styled(DelayedAnchor)`
     margin-left: 0.5rem;
     width: 4rem;
     height: 4rem;
@@ -13,14 +13,14 @@ const Button = styled(DelayedButton)`
 `
 
 interface Props {
-    onClick: () => void
+    href: string
     children: ReactNode
 }
 
-export const NavbarButton = ({ onClick, children, ...rest }: Props) => {
+export const NavbarAnchor = ({ href, children, ...rest }: Props) => {
     return (
-        <Button onClickDelay={onClick} hoverColor={'#004d74'} {...rest}>
+        <Anchor href={href} hoverColor={'#004d74'} {...rest}>
             {children}
-        </Button>
+        </Anchor>
     )
 }

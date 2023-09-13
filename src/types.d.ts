@@ -44,6 +44,23 @@ interface Answer<T, U> {
     hard: U
 }
 
+// type array values and interface keys MUST BE EXACTLY THE SAME
+// type array values and interface keys MUST BE EXACTLY THE SAME
+type ValidSearchParam = 'level'
+type ValidSearchParamAll = ['level']
+interface SearchParamsState extends Partial<SearchParamsState> {
+    [level: string]: Level
+}
+// interface SearchParamsState {
+//     [level: string]: Level
+// }
+// type array values and interface keys MUST BE EXACTLY THE SAME
+// type array values and interface keys MUST BE EXACTLY THE SAME
+
+type UnvalidatedParam = {
+    [k: string]: string
+}
+
 // Zustand internal
 type SetStateInternal<T> = {
     _(

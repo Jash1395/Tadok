@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components'
 import { LoadingSpinner } from '../common/Loading'
-import '../../themes.css'
+import '../../styles/themes.css'
 
 const flashAnimation = (color: string) => keyframes`
   0% {

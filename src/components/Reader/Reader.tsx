@@ -5,6 +5,7 @@ import { AnswerCard } from './AnswerCard'
 import { AnswerButtons } from './AnswerButtons'
 import { ShowTranslationButton } from './ShowTranslationButton'
 import { postOpenAI } from '../../api/postOpenAI'
+import { useValidatedSearchParams } from '../../hooks/useValidatedSearchParams'
 import { useFlashAnswer } from '../../hooks/useFlashAnswer'
 
 const Container = styled.div`
@@ -32,11 +33,17 @@ const CardContainer = styled.div`
     justify-content: space-evenly;
 `
 
-interface Props {
-    level: Level
-}
+interface Props {}
 
-export const Reader = ({ level }: Props) => {
+export const Reader = ({}: Props) => {
+    const { validatedSearchParams } = useValidatedSearchParams()
+    const level = validatedSearchParams['level']
+
+    console.log(level)
+    console.log(level)
+    console.log(level)
+    console.log(level)
+
     const [sentenceList, setSentenceList] = useState<Sentence[]>([])
     const [isTranslationVisible, setIsTranslationVisible] =
         useState<boolean>(false)
@@ -46,6 +53,7 @@ export const Reader = ({ level }: Props) => {
 
     useEffect(() => {
         if (sentenceList.length < 10) {
+            if (!level) return
             fetchSentences(level)
             fetchSentences(level)
             fetchSentences(level)

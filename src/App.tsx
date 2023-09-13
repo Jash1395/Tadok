@@ -1,34 +1,12 @@
-import { styled } from 'styled-components'
-import { Navbar } from './components/Navbar/Navbar'
-import { Reader } from './components/Reader/Reader'
-import { LevelSelectMenu } from './components/LevelSelectMenu/LevelSelectMenu'
-import { useStore } from './hooks/useStore'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes/routes.tsx'
 import { useInitialTheme } from './hooks/useInitialTheme'
-import './themes.css'
-
-const Container = styled.div`
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    background-color: var(--primary);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`
+import './styles/themes.css'
 
 const App = () => {
-    const { level } = useStore()
     useInitialTheme()
 
-    return (
-        <>
-            <Navbar level={level} />
-            <Container>
-                {level ? <Reader level={level} /> : <LevelSelectMenu />}
-            </Container>
-        </>
-    )
+    return <RouterProvider router={router} />
 }
 
 export default App

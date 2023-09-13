@@ -1,4 +1,4 @@
-import { themeDelay } from '../styles'
+import { themeDelay } from '../styles/styles'
 
 const toggleTransitionAll = (elements: Element[], isTransition: boolean) => {
     const transition = isTransition

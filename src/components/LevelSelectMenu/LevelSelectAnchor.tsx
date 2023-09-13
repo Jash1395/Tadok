@@ -1,17 +1,18 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { levelColors } from '../../styles'
-import { useStore } from '../../hooks/useStore'
-import { DelayedButton } from '../common/DelayedButton'
-import '../../themes.css'
+import { levelColors } from '../../styles/styles'
+import { DelayedAnchor } from '../common/DelayedAnchor'
+import { useValidatedSearchParams } from '../../hooks/useValidatedSearchParams'
+import '../../styles/themes.css'
 
-const Button = styled(DelayedButton)<{
+const Anchor = styled(DelayedAnchor)<{
     $backgroundColor: string
     $borderColor: string
     $isHidden: boolean
     $isSelected: boolean
 }>`
-    width: 75%;
+    width: 50%;
+    min-width: 20rem;
     height: 3.2rem;
     border-radius: 0.3rem;
     box-shadow: 2px 2px 8px -3px #6060607d;
@@ -38,6 +39,8 @@ const DescriptionText = styled.p`
     margin-right: 2rem;
     font-size: 1rem;
     font-weight: 400;
+    display: flex;
+    justify-content: center;
 `
 
 interface Props {
@@ -46,9 +49,9 @@ interface Props {
     disable: () => void
 }
 
-export const LevelSelectButton = ({ level, isDisabled, disable }: Props) => {
+export const LevelSelectAnchor = ({ level, isDisabled, disable }: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
-    const { setLevel } = useStore()
+    const { setValidatedSearchParams } = useValidatedSearchParams()
 
     const levelDescriptions = {
         A1: 'Beginner',
@@ -61,17 +64,18 @@ export const LevelSelectButton = ({ level, isDisabled, disable }: Props) => {
 
     const handleClickInstant = () => {
         if (isDisabled) return
+        setValidatedSearchParams({ level: level })
         setIsSelected(true)
         disable()
     }
 
     const handleClickDelay = () => {
         if (isDisabled) return
-        setLevel(level)
     }
 
     return (
-        <Button
+        <Anchor
+            href={`/reader?level=${level}`}
             onClickInstant={handleClickInstant}
             onClickDelay={handleClickDelay}
             delay={700}
@@ -85,6 +89,6 @@ export const LevelSelectButton = ({ level, isDisabled, disable }: Props) => {
         >
             <LevelText>{`${level}`}</LevelText>
             <DescriptionText>{levelDescriptions[level]}</DescriptionText>
-        </Button>
+        </Anchor>
     )
 }

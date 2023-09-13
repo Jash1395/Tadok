@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useStore } from '../../hooks/useStore'
 import { useAnswerTimer } from '../../hooks/useAnswerTimer'
 import { calcAnswerDuration } from '../../utils/calcAnswerDuration'
-import '../../themes.css'
+import '../../styles/themes.css'
 
 const Container = styled.div`
     width: 100%;

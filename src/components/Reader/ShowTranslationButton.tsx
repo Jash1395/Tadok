@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { buttonPress } from '../../styles'
+import { buttonPress } from '../../styles/styles'
 
 const Button = styled.button<{ $isVisible: boolean }>`
     margin-bottom: 1.4rem;

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { LevelSelectButton } from './LevelSelectButton'
-import '../../themes.css'
+import { LevelSelectAnchor } from './LevelSelectAnchor'
+import '../../styles/themes.css'
 
 const Container = styled.div`
     flex: 1;
@@ -41,32 +41,32 @@ export const LevelSelectMenu = ({}: Props) => {
         <Container>
             <Title>Choose Your Level</Title>
             <ButtonContainer>
-                <LevelSelectButton
+                <LevelSelectAnchor
                     level="A1"
                     isDisabled={isDisabled}
                     disable={disable}
                 />
-                <LevelSelectButton
+                <LevelSelectAnchor
                     level="A2"
                     isDisabled={isDisabled}
                     disable={disable}
                 />
-                <LevelSelectButton
+                <LevelSelectAnchor
                     level="B1"
                     isDisabled={isDisabled}
                     disable={disable}
                 />
-                <LevelSelectButton
+                <LevelSelectAnchor
                     level="B2"
                     isDisabled={isDisabled}
                     disable={disable}
                 />
-                <LevelSelectButton
+                <LevelSelectAnchor
                     level="C1"
                     isDisabled={isDisabled}
                     disable={disable}
                 />
-                <LevelSelectButton
+                <LevelSelectAnchor
                     level="C2"
                     isDisabled={isDisabled}
                     disable={disable}
