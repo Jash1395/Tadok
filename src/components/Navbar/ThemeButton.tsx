@@ -4,7 +4,7 @@ import { useStore } from '../../hooks/useStore'
 import '@theme-toggles/react/css/Classic.css'
 
 const Button = styled(Classic)<{ $color: string }>`
-    margin: 0 1rem 0 auto;
+    margin: 0 1rem 0 0;
     height: '2rem';
     width: '2rem';
     font-size: 2rem;

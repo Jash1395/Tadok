@@ -1,8 +1,8 @@
 import { Handler } from '@netlify/functions'
 import { performance } from 'perf_hooks'
-import { getChatCompletion } from '../chatCompletion'
-import { logChatCompletionDetails } from '../logChatCompletionDetails'
-import { validateLevel } from '../validateLevel'
+import { getChatCompletion } from '../openAI/chatCompletion'
+import { logChatCompletionDetails } from '../openAI/logChatCompletionDetails'
+import { validateLevel } from '../openAI/validateLevel'
 
 export const handler: Handler = async (event) => {
     try {

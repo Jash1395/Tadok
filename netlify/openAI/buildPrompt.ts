@@ -1,16 +1,16 @@
 import { levelPrompts } from './levelPromps'
 
-import A_words from './assets/A_words.json'
-import B_words from './assets/B_words.json'
-import C_words from './assets/C_words.json'
+const A_words: Wordlist = require('../assets/A_words.json')
+const B_words: Wordlist = require('../assets/B_words.json')
+const C_words: Wordlist = require('../assets/C_words.json')
 
 const wordlists = {
-    A1: A_words as Wordlist,
-    A2: A_words as Wordlist,
-    B1: B_words as Wordlist,
-    B2: B_words as Wordlist,
-    C1: C_words as Wordlist,
-    C2: C_words as Wordlist,
+    A1: A_words,
+    A2: A_words,
+    B1: B_words,
+    B2: B_words,
+    C1: C_words,
+    C2: C_words,
 }
 
 const getRandomWord = (wordlist: Wordlist) => {

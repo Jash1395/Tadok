@@ -5,6 +5,7 @@ import { Navbar } from '../components/Navbar/Navbar.tsx'
 import { Reader } from '../components/Reader/Reader'
 import { LevelSelectMenu } from '../components/LevelSelectMenu/LevelSelectMenu'
 import { Window } from '../components/Window.tsx'
+import { Statistics } from '../components/Statistics/Statistics.tsx'
 
 const _Reader: RouteObject = {
     path: 'reader',
@@ -24,7 +25,7 @@ const _SelectLevelMenu: RouteObject = {
 
 const _Statistics: RouteObject = {
     path: 'statistics',
-    element: 'Stats',
+    element: <Statistics />,
 }
 
 const _Browser: RouteObject = {

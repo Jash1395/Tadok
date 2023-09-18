@@ -5,8 +5,6 @@ import { NavbarAnchor } from '../common/NavbarAnchor'
 const Anchor = styled(NavbarAnchor)`
     margin-left: 0.5rem;
     width: 6.2rem;
-    height: 2.6rem;
-    border-radius: 0.4rem;
     font-weight: 700;
 `
 const Circle = styled.div<{

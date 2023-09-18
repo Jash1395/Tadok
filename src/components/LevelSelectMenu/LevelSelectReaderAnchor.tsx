@@ -49,7 +49,11 @@ interface Props {
     disable: () => void
 }
 
-export const LevelSelectAnchor = ({ level, isDisabled, disable }: Props) => {
+export const LevelSelectReaderAnchor = ({
+    level,
+    isDisabled,
+    disable,
+}: Props) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)
     const { setValidatedSearchParams } = useValidatedSearchParams()
 

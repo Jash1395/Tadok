@@ -4,8 +4,7 @@ import { DelayedAnchor } from './DelayedAnchor'
 
 const Anchor = styled(DelayedAnchor)`
     margin-left: 0.5rem;
-    width: 4rem;
-    height: 4rem;
+    height: 2.6rem;
     border-radius: 0.4rem;
     color: white;
     box-shadow: 1px 1px 3px 1px #002d44;

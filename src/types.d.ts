@@ -89,6 +89,7 @@ type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 type Difficulty = 'hard' | 'okay' | 'easy'
 type Lang = 'english' | 'korean'
 type Theme = 'light' | 'dark'
+type MainWindow = 'reader' | 'statistics' | 'browser'
 
 interface Sentence {
     [questionLang: string]: string
@@ -96,7 +97,7 @@ interface Sentence {
     inputs: Inputs
 }
 
-// OPENAI / API
+// OPENAI
 interface Inputs {
     seedWord: WordEntry
     tense: string
@@ -113,4 +114,21 @@ type Wordlist = WordEntry[]
 interface PromptData {
     chatCompletionMessageParam: ChatCompletionMessageParam
     inputs: Inputs
+}
+
+// Statistics
+type LevelStats = Record<
+    Level,
+    Record<
+        Difficulty,
+        {
+            count: number
+            duration: string
+        }
+    >
+>
+
+interface TestStats {
+    time: string
+    level: LevelStats
 }

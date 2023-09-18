@@ -1,29 +1,14 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { api } from './api'
-import { verifyJSON } from '../utils/verifyJSON'
-import { formatSentenceArray } from '../utils/formatSentenceArray'
 
-export async function postOpenAI(
-    level: Level,
-    questionLang: Lang,
-    answerLang: Lang
-): Promise<Sentence[] | null> {
-    const baseURL = '/api/openAI?'
-    const queryParams = {
-        level: level,
-    }
+export async function getStatistics(): Promise<LevelStats[]> {
+    const baseURL = '/api/statistics'
+    const queryParams = {}
     const params = new URLSearchParams(queryParams).toString()
 
     try {
-        const response = await api.get<any>(baseURL + params)
-        const sentences = JSON.parse(response.data.message).sentences
-        const inputs = JSON.parse(response.data.inputs)
-
-        if (verifyJSON(sentences, questionLang, answerLang)) {
-            const formattedSentences = formatSentenceArray(sentences, inputs)
-            return formattedSentences
-        }
-        return null
+        const response = await api.get<LevelStats[]>(baseURL + params)
+        return response.data
     } catch (error: any) {
         if (axios.isAxiosError(error)) {
             if (error.response) {

@@ -1,7 +1,10 @@
 /* themes */
 :root {
+    --navbar-height: 3.6rem;
     --one: #00405f;
     --two: #ffd700;
+
+    --icon-hover-bg: #0b587e;
 }
 
 :root[data-theme='light'] {
