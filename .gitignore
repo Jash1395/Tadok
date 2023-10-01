@@ -2,6 +2,7 @@
 db.json
 .env
 /wordlists/
+/backend/
 
 # Logs
 logs

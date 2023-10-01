@@ -3,24 +3,39 @@
     --navbar-height: 3.6rem;
     --one: #00405f;
     --two: #ffd700;
+    --green: #4caf4f;
+    --yellow: #ffd700;
+    --red: #ff5733;
 
     --icon-hover-bg: #0b587e;
+    --transition-bg-duration: 0.1s ease-in-out;
+    --stats-br: 0.8rem;
 }
 
 :root[data-theme='light'] {
+    --one-theme: #c7dce7;
+    --two-theme: #ffd700;
+
     --primary: #f3f3f3;
     --secondary: white;
 
     --card-text: #202020;
+    --card-text-light: #646464;
     --card-bg: white;
     --answer-button-bg: #202020;
+    --soft-bg-theme: #20202013;
 }
 
 :root[data-theme='dark'] {
+    --one-theme: #103247;
+    --two-theme: #c2a70d;
+
     --primary: #202020;
     --secondary: #0c0c0c;
 
     --card-text: #f3f3f3;
+    --card-text-light: #a1a1a1;
     --card-bg: #141414;
     --answer-button-bg: #141414;
+    --soft-bg-theme: #d8d8d813;
 }

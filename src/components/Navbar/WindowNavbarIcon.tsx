@@ -1,12 +1,11 @@
 import styled from 'styled-components'
 import {
-    faBookOpenReader,
+    faBookOpen,
     faChartSimple,
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons'
 import { IconAnchor } from '../common/IconAnchor'
 import { buttonPress } from '../../styles/styles'
-import { icon } from '@fortawesome/fontawesome-svg-core'
 import { useLocation } from 'react-router-dom'
 
 interface Props {
@@ -17,8 +16,8 @@ const Anchor = styled(IconAnchor)<{ $isCurrentWindow: boolean }>`
     border-radius: 1rem;
     border-radius: 0.5rem;
     background-color: var(--one);
-    color: ${(props) =>
-        props.$isCurrentWindow ? 'var(--two)' : 'var(--card-bg)'};
+    color: ${(props) => (props.$isCurrentWindow ? 'var(--two)' : 'white')};
+    transition: background-color var(--transition-bg-duration);
     ${buttonPress}
 
     @media (hover: hover) and (pointer: fine) {
@@ -36,7 +35,7 @@ const Anchor = styled(IconAnchor)<{ $isCurrentWindow: boolean }>`
 `
 
 const iconData = {
-    reader: { href: '/reader', icon: faBookOpenReader },
+    reader: { href: '/reader', icon: faBookOpen },
     statistics: { href: '/statistics', icon: faChartSimple },
     browser: { href: '/browser', icon: faMagnifyingGlass },
 }

@@ -1,118 +1,90 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
-import { StatWindow } from './StatWindow'
-import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area } from 'recharts'
 import { getStatistics } from '../../api/getStatistics'
+import { ShortStats } from './ShortStats.tsx'
+import { TimescaleRadio } from './TimescaleRadio.tsx'
+import { LevelRadio } from './LevelRadio.tsx'
+import { convertToLocalTimeZone } from '../../utils/filterData.ts'
+import { useStatistics } from '../../hooks/useStatistics.ts'
+import { AllLevelCharts } from './Charts/AllLevelCharts.tsx'
+import { ByLevelCharts } from './Charts/ByLevelCharts.tsx'
 
 const Container = styled.div`
-    width: 90%;
+    padding-bottom: 3vw;
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const CardContainer = styled.div`
+    margin-top: 2rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    > * {
-        margin-top: 2rem;
+    > :nth-child(1) {
+        margin-top: 0.6rem;
     }
 `
 
-const GraphContainer = styled.div`
-    height: 30rem;
-    width: 30rem;
+const Text = styled.p`
+    margin-top: 2rem;
+    margin-bottom: 0.3rem;
+    color: var(--card-text);
+    font-weight: 700;
+    font-size: 1.3rem;
 `
+
 interface Props {}
 
 export const Statistics = ({}: Props) => {
-    const [data, setData] = useState<LevelStats[]>([])
+    const [data, setData] = useState<TestStats[]>([])
+    const [timescale, setTimeScale] = useState<Timescale>('Week')
+    const [level, setLevel] = useState<Level>('A1')
+
+    // Test data for todayStats in useStatistics()
+    const { todayStats, totalStats, filteredTotalData, filteredByLevelData } =
+        useStatistics(data, timescale, level)
 
     useEffect(() => {
-        const getData = async () => {
+        ;(async () => {
             try {
                 const stats = await getStatistics()
                 if (!stats) throw Error('Error')
-
-                setData(stats)
+                const convertedStats = convertToLocalTimeZone(stats)
+                setData(convertedStats)
             } catch (error) {
                 console.error(error)
             }
-        }
-        getData()
+        })()
     }, [])
-
-    const transformData = (data: any[]): any[] => {
-        let aggregatedCount = 0
-
-        return data.map((entry) => {
-            const { time, levels } = entry
-
-            // Sum up 'count' from all nested layers
-            Object.values(levels).forEach((level) => {
-                Object.values(level).forEach((category) => {
-                    aggregatedCount += category.count
-                })
-            })
-
-            // Convert ISO time to dd/mm
-            const formattedTime = new Date(time).toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: '2-digit',
-            })
-
-            return { date: formattedTime, count: aggregatedCount }
-        })
-    }
-
-    const transformedData = transformData(data)
-    console.log(transformedData)
-
-    const winHight = 15
-    const winWidth = '100%'
 
     return (
         <Container>
-            <StatWindow height={`${winHight}rem`} width={winWidth}>
-                <GraphContainer>
-                    <AreaChart
-                        width={500}
-                        height={250}
-                        data={transformedData}
-                        margin={{ top: 10, right: 0, left: 20, bottom: 10 }}
-                    >
-                        <defs>
-                            <linearGradient
-                                id="colorPv"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                            >
-                                <stop
-                                    offset="5%"
-                                    stopColor="#00405f"
-                                    stopOpacity={0.8}
-                                />
-                                <stop
-                                    offset="95%"
-                                    stopColor="#00405f"
-                                    stopOpacity={0}
-                                />
-                            </linearGradient>
-                        </defs>
-                        <XAxis dataKey="date" />
-                        <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <Tooltip />
-                        <Area
-                            type="monotone"
-                            dataKey="count"
-                            stroke="#00405f"
-                            fillOpacity={0.7}
-                            fill="url(#colorPv)"
-                        />
-                    </AreaChart>
-                </GraphContainer>
-            </StatWindow>
-            <StatWindow height={`${winHight}rem`} width={winWidth} />
-            <StatWindow height={`${winHight}rem`} width={winWidth} />
+            <CardContainer>
+                <Text>Today</Text>
+                <ShortStats data={todayStats} />
+                <Text>Total</Text>
+                <ShortStats data={totalStats} />
+            </CardContainer>
+            <Text>Detailed</Text>
+            <TimescaleRadio
+                timescale={timescale}
+                filteredTotalData={filteredTotalData}
+                setTimeScale={setTimeScale}
+            />
+            <AllLevelCharts
+                filteredTotalData={filteredTotalData}
+                timescale={timescale}
+            />
+            <Text>By Level</Text>
+            <LevelRadio level={level} setLevel={setLevel} />
+            <ByLevelCharts
+                filteredByLevelData={filteredByLevelData}
+                timescale={timescale}
+            />
         </Container>
     )
 }

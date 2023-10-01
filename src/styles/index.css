@@ -8,24 +8,28 @@
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+
     user-select: none;
-    -webkit-user-drag: none;
     -webkit-user-select: none;
-    -moz-user-drag: none;
     -moz-user-select: none;
-    -ms-user-drag: none;
     -ms-user-select: none;
+
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -ms-user-drag: none;
 }
 
 button,
 input[type='submit'],
-input[type='reset'] {
+input[type='reset'],
+label {
     background: none;
     color: inherit;
     border: none;

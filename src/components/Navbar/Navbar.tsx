@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { LevelMenuAnchor } from './LevelMenuAnchor'
 import { ThemeButton } from './ThemeButton'
 import { useValidatedSearchParams } from '../../hooks/useValidatedSearchParams'
-import { StatisticsAnchor } from './StatisticsAnchor'
 import { WindowNavbar } from './WindowNavbar'
 
 const Container = styled.div`
@@ -14,10 +13,18 @@ const Container = styled.div`
     background-color: #00405f;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    z-index: 1;
 `
 
-const NavigationContainer = styled.div``
+const LeftContainer = styled.div`
+    flex: 1;
+`
+const MiddleContainer = styled.div``
+const RightContainer = styled.div`
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+`
 
 interface Props {}
 
@@ -27,13 +34,15 @@ export const Navbar = ({}: Props) => {
 
     return (
         <Container>
-            <></>
-            {level && <LevelMenuAnchor level={level} />}
-            <NavigationContainer>
-                <StatisticsAnchor />
-            </NavigationContainer>
-            <WindowNavbar />
-            <ThemeButton />
+            <LeftContainer>
+                {level && <LevelMenuAnchor level={level} />}
+            </LeftContainer>
+            <MiddleContainer>
+                <WindowNavbar />
+            </MiddleContainer>
+            <RightContainer>
+                <ThemeButton />
+            </RightContainer>
         </Container>
     )
 }

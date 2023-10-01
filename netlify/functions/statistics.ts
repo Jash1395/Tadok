@@ -1,5 +1,5 @@
 import { Handler } from '@netlify/functions'
-const testStats: TestStats = require('../assets/testStats.json')
+const testStats: TestStats[] = require('../assets/testStats.json')
 
 export const handler: Handler = async () => {
     try {

@@ -7,7 +7,7 @@ const Button = styled(Classic)<{ $color: string }>`
     margin: 0 1rem 0 0;
     height: '2rem';
     width: '2rem';
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: ${(props) => props.$color};
     display: flex;
     align-items: center;

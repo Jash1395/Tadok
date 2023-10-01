@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router-dom'
+import { validSearchParams } from '../typesExported'
 import { validateLevel } from '../utils/validateLevel'
 
 // seperate functions to validate each type(key) of param
@@ -12,7 +13,7 @@ const validateParam = (key: ValidSearchParam, obj: any): Level | undefined => {
 }
 
 const validateSearchParams = (obj: UnvalidatedParam): SearchParamsState => {
-    const validKeys: ValidSearchParamAll = ['level']
+    const validKeys = validSearchParams
 
     const reducer = (accumulator: SearchParamsState, key: ValidSearchParam) => {
         const value = validateParam(key, obj)

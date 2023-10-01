@@ -1,3 +1,24 @@
+// General
+type Month =
+    | 'Jan'
+    | 'Feb'
+    | 'Mar'
+    | 'Apr'
+    | 'May'
+    | 'Jun'
+    | 'Jul'
+    | 'Aug'
+    | 'Sep'
+    | 'Oct'
+    | 'Nov'
+    | 'Dec'
+
+type DateParts = {
+    day: string
+    month: Month
+    year: string
+}
+
 // Zustand / State
 interface StatsState {
     sentenceHistory: SentenceHistoryEntry[]
@@ -44,18 +65,13 @@ interface Answer<T, U> {
     hard: U
 }
 
-// type array values and interface keys MUST BE EXACTLY THE SAME
-// type array values and interface keys MUST BE EXACTLY THE SAME
-type ValidSearchParam = 'level'
-type ValidSearchParamAll = ['level']
+const validSearchParams = ['level'] as const
+type ValidSearchParamAll = (typeof validSearchParams)[number]
+type ValidSearchParam = Partial<ValidSearchParamAll>
+
 interface SearchParamsState extends Partial<SearchParamsState> {
     [level: string]: Level
 }
-// interface SearchParamsState {
-//     [level: string]: Level
-// }
-// type array values and interface keys MUST BE EXACTLY THE SAME
-// type array values and interface keys MUST BE EXACTLY THE SAME
 
 type UnvalidatedParam = {
     [k: string]: string
@@ -85,11 +101,16 @@ type SetState = SetStateInternal<T>
 type GetState = StoreApi<T>['getState']
 
 // App / General
-type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
-type Difficulty = 'hard' | 'okay' | 'easy'
+
+const validLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+const validDifficulty = ['easy', 'okay', 'hard'] as const
+type Level = (typeof validLevels)[number]
+type Difficulty = (typeof validDifficulty)[number]
+
 type Lang = 'english' | 'korean'
 type Theme = 'light' | 'dark'
 type MainWindow = 'reader' | 'statistics' | 'browser'
+type Timescale = 'All' | 'Year' | 'Month' | 'Week' | 'Today'
 
 interface Sentence {
     [questionLang: string]: string
@@ -117,18 +138,41 @@ interface PromptData {
 }
 
 // Statistics
-type LevelStats = Record<
-    Level,
-    Record<
-        Difficulty,
-        {
-            count: number
-            duration: string
-        }
-    >
->
+
+type Stat = {
+    count: number
+    duration: number
+}
+
+type LevelTestStats = Partial<Record<Level, Record<Difficulty, Stat>>>
 
 interface TestStats {
-    time: string
-    level: LevelStats
+    date: string
+    levels: LevelTestStats
 }
+
+type Diff = {
+    [key in Difficulty]: Stat
+} & Stat
+
+type LevelStats = {
+    [key in Level]: Diff
+}
+
+interface SummedStats extends Stat {
+    date: string
+    levels: LevelStats
+}
+
+interface SummedLevelStats extends Diff {
+    date: string
+}
+
+type TimeSeriesDataPoint = { xval: string; yval: number }
+type TimeSeriesData = TimeSeriesDataPoint[]
+
+type CrossSecDataPoint = {
+    xval: Level[number]
+    yval: number
+}
+type CrossSecData = CrossSecDataPoint[]

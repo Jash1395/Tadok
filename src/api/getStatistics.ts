@@ -1,13 +1,11 @@
 import axios from 'axios'
 import { api } from './api'
 
-export async function getStatistics(): Promise<LevelStats[]> {
+export async function getStatistics(): Promise<TestStats[]> {
     const baseURL = '/api/statistics'
-    const queryParams = {}
-    const params = new URLSearchParams(queryParams).toString()
 
     try {
-        const response = await api.get<LevelStats[]>(baseURL + params)
+        const response = await api.get<TestStats[]>(baseURL)
         return response.data
     } catch (error: any) {
         if (axios.isAxiosError(error)) {

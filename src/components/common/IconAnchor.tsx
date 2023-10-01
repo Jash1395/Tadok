@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-// import { buttonPress } from '../../styles/styles'
+import { Link } from 'react-router-dom'
 
-const Anchor = styled.a``
+const Anchor = styled(Link)``
 
 const Container = styled.div<{ $size: number }>`
     font-size: ${(props) => `${props.$size * 0.6}rem`};
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const IconAnchor = ({ icon, size, href, className }: Props) => (
-    <Anchor href={href} className={className}>
+    <Anchor to={href} className={className}>
         <Container $size={size}>
             <FontAwesomeIcon icon={icon} />
         </Container>

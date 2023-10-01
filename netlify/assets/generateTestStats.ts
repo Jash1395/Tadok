@@ -43,10 +43,11 @@ const generateData = (numObjects: number, currentDate: Date) =>
         )
 
         const newDate = new Date(currentDate)
-        newDate.setDate(newDate.getDate() + i)
+        newDate.setDate(newDate.getDate() - i)
+        newDate.setHours(0, 0, 0, 0)
 
         return {
-            time: newDate.toISOString(),
+            date: newDate.toISOString(),
             levels,
         }
     })
@@ -60,7 +61,7 @@ const main = () => {
         return
     }
 
-    const currentDate = new Date('2023-09-15T10:00:00.000Z')
+    const currentDate = new Date() // Use the current date
     const generatedData = generateData(numObjects, currentDate)
 
     fs.writeFileSync(

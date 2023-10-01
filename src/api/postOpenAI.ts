@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { api } from './api'
 import { verifyJSON } from '../utils/verifyJSON'
 import { formatSentenceArray } from '../utils/formatSentenceArray'
