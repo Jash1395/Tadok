@@ -5,13 +5,13 @@ import { logChatCompletionDetails } from '../openAI/logChatCompletionDetails'
 import { validateLevel } from '../openAI/validateLevel'
 
 export const handler: Handler = async (event) => {
+    console.log('test')
     try {
         const unvalidatedLevel = event.queryStringParameters?.['level']
         const level = validateLevel(unvalidatedLevel)
         if (!level) {
             throw Error('Valid level not specified')
         }
-
         // call to openAI
         const startTime = performance.now()
         const output = await getChatCompletion(level)

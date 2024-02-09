@@ -8,7 +8,7 @@ export async function postOpenAI(
     questionLang: Lang,
     answerLang: Lang
 ): Promise<Sentence[] | null> {
-    const baseURL = '/api/openAI?'
+    const baseURL = '/openAI?'
     const queryParams = {
         level: level,
     }
