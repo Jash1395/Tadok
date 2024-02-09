@@ -29,7 +29,7 @@ interface Props {
 
 export const LevelMenuAnchor = ({ level }: Props) => {
     return (
-        <Anchor href={'/selectlevel'}>
+        <Anchor href={'/reader'}>
             <Text>Level:</Text>
             {level}
             <Circle $backgroundColor={levelColors.full[level]} />

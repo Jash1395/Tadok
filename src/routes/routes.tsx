@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import { ErrorPage } from '../routes/ErrorPage.tsx'
 import { Navbar } from '../components/Navbar/Navbar.tsx'
 import { Reader } from '../components/Reader/Reader'
-import { LevelSelectMenu } from '../components/LevelSelectMenu/LevelSelectMenu'
 import { Window } from '../components/Window.tsx'
 import { Statistics } from '../components/Statistics/Statistics.tsx'
 
@@ -16,11 +15,6 @@ const _Reader: RouteObject = {
             element: <Reader />,
         },
     ],
-}
-
-const _SelectLevelMenu: RouteObject = {
-    path: 'selectlevel',
-    element: <LevelSelectMenu />,
 }
 
 const _Statistics: RouteObject = {
@@ -45,12 +39,12 @@ const Root: RouteObject = {
         {
             path: '/',
             index: true,
-            element: <Navigate to="/selectlevel" replace />,
+            element: <Navigate to="/Reader" replace />,
         },
         {
             path: '/',
             element: <Window />,
-            children: [_SelectLevelMenu, _Reader, _Statistics, _Browser],
+            children: [_Reader, _Statistics, _Browser],
             errorElement: <ErrorPage />,
         },
     ],

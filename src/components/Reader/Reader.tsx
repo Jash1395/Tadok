@@ -7,6 +7,7 @@ import { ShowTranslationButton } from './ShowTranslationButton'
 import { postOpenAI } from '../../api/postOpenAI'
 import { useValidatedSearchParams } from '../../hooks/useValidatedSearchParams'
 import { useFlashAnswer } from '../../hooks/useFlashAnswer'
+import { LevelSelectMenu } from './LevelSelectMenu'
 
 const Container = styled.div`
     flex: 1;
@@ -37,19 +38,21 @@ interface Props {}
 
 export const Reader = ({}: Props) => {
     const { validatedSearchParams } = useValidatedSearchParams()
-    const level = validatedSearchParams['level']
-
-    console.log(level)
-    console.log(level)
-    console.log(level)
-    console.log(level)
-
+    const [level, setLevel] = useState<Level | undefined>()
     const [sentenceList, setSentenceList] = useState<Sentence[]>([])
     const [isTranslationVisible, setIsTranslationVisible] =
         useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
     const { isFlashAnswer, flashAnswer } = useFlashAnswer()
+
+    useEffect(() => {
+        setSentenceList([])
+    }, [level])
+
+    useEffect(() => {
+        setLevel(validatedSearchParams['level'])
+    }, [validatedSearchParams])
 
     useEffect(() => {
         if (sentenceList.length < 10) {
@@ -65,7 +68,7 @@ export const Reader = ({}: Props) => {
             setIsLoading(false)
             setError(false)
         }
-    }, [sentenceList.length])
+    }, [sentenceList.length, level])
 
     const fetchSentences = async (level: Level) => {
         try {
@@ -94,6 +97,13 @@ export const Reader = ({}: Props) => {
     const showTranslation = () => {
         setIsTranslationVisible(true)
     }
+
+    if (!level)
+        return (
+            <Container>
+                <LevelSelectMenu />
+            </Container>
+        )
 
     if (error && sentenceList.length === 0) {
         return <div>Error: {error.message}</div>

@@ -69,7 +69,6 @@ export const DelayedAnchor = ({
         setIsActive(true)
         setTimeout(() => {
             onClickDelay && onClickDelay()
-            console.log(href)
             navigate(href)
             setIsActive(false)
         }, delay)

@@ -35,7 +35,6 @@ export const useValidatedSearchParams = (): {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const setValidatedSearchParams = (newParams: SearchParamsState) => {
-        console.log(newParams)
         setSearchParams(newParams)
     }
 
