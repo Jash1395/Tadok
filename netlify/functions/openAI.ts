@@ -15,7 +15,7 @@ export const handler: Handler = async (event) => {
         const startTime = performance.now()
         const output = await getChatCompletion(level)
         const endTime = performance.now()
-        logChatCompletionDetails(startTime, endTime, output.chatCompletion)
+        // logChatCompletionDetails(startTime, endTime, output.chatCompletion)
 
         if (!output.chatCompletion.choices[0]) {
             throw Error('No message received')

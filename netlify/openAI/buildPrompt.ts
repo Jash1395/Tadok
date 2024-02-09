@@ -38,7 +38,7 @@ export const buildPrompt = (level: Level): PromptData => {
         )
     }
 
-    console.log(seedWord.word, tense, seedWord.definition)
+    // console.log(seedWord.word, tense, seedWord.definition)
 
     const userPrompt = `
     Make exactly one sentencnces in Korean using the word "${seedWord.word}", where ${seedWord.word} has the meaning "${seedWord.definition}"

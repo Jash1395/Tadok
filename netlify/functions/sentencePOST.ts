@@ -2,7 +2,9 @@ import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env['SUPABASE_URL'] as string
 const supabaseKey = process.env['SUPABASE_KEY'] as string
-const supabase = createClient(supabaseUrl, supabaseKey)
+const supabase = createClient(supabaseUrl, supabaseKey, {
+    auth: { persistSession: false },
+})
 
 export const handler = async (
     event: any
@@ -16,14 +18,13 @@ export const handler = async (
     }
 
     const data = JSON.parse(event.body)
-    const { sentence, definitionId } = data
 
-    const query = `
-        INSERT INTO sentences (sentence, definition_id)
-        VALUES ('${sentence}', ${definitionId});
-      `
+    const queryData = { sentence_text: data.sentence, word_text: data.word }
 
-    const { data: insertedData, error } = await supabase.rpc('sql', { query })
+    const { data: insertedData, error } = await supabase.rpc(
+        'insert_sentence',
+        queryData
+    )
 
     if (error) {
         return {

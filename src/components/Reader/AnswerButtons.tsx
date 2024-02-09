@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useStore } from '../../hooks/useStore'
 import { useAnswerTimer } from '../../hooks/useAnswerTimer'
 import { calcAnswerDuration } from '../../utils/calcAnswerDuration'
+import { postAnswerData } from '../../api/postAnswerData'
 import '../../styles/themes.css'
 
 const Container = styled.div`
@@ -100,7 +101,7 @@ export const AnswerButtons = ({
     const { durationCutoff, level } = useStore()
     const startUnixTime = useAnswerTimer(currentSentence)
 
-    const saveAnswerData = (difficulty: Difficulty) => {
+    const updateLocalStore = (difficulty: Difficulty) => {
         // console.log(totalTime, sentenceCount, wordList, sentenceHistory)
         if (!currentSentence || !level) return
         const duration = calcAnswerDuration(startUnixTime, durationCutoff)
@@ -110,10 +111,16 @@ export const AnswerButtons = ({
         addSentenceHistory(currentSentence, duration, difficulty, level)
     }
 
-    const handleClick = (difficulty: Difficulty) => {
-        saveAnswerData(difficulty)
-        flashAnswer(difficulty)
+    const handleClick = async (difficulty: Difficulty) => {
         getNextSentence()
+        if (!currentSentence?.['questionLang']) return
+
+        updateLocalStore(difficulty)
+        flashAnswer(difficulty)
+        postAnswerData(
+            currentSentence['questionLang'],
+            currentSentence?.inputs.seedWord.word
+        )
     }
 
     return (
