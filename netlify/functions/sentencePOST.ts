@@ -1,15 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env['SUPABASE_URL'] as string
-const supabaseKey = process.env['SUPABASE_KEY'] as string
-const supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false },
-})
+export const handler = async (event: any) => {
+    const supabaseUrl = process.env['SUPABASE_URL']
+    const supabaseKey = process.env['SUPABASE_KEY']
 
-export const handler = async (
-    event: any
-    // , context: any
-) => {
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
@@ -17,24 +11,56 @@ export const handler = async (
         }
     }
 
-    const data = JSON.parse(event.body)
-
-    const queryData = { sentence_text: data.sentence, word_text: data.word }
-
-    const { data: insertedData, error } = await supabase.rpc(
-        'insert_sentence',
-        queryData
-    )
-
-    if (error) {
+    if (!supabaseUrl || !supabaseKey) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
+            body: JSON.stringify({
+                error: 'Supabase credentials are not properly set.',
+            }),
         }
     }
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ insertedData }),
+    const supabase = createClient(supabaseUrl, supabaseKey, {
+        auth: { persistSession: false },
+    })
+
+    try {
+        const data = JSON.parse(event.body)
+
+        const sentenceQueryData = {
+            p_answer_time_ms: data.duration,
+            p_definition: data.definition,
+            p_difficulty_level: data.difficulty,
+            p_sentence: data.sentence,
+            p_word: data.word,
+        }
+
+        console.log(sentenceQueryData)
+
+        const { data: insertedData, error } = await supabase.rpc(
+            'insert_sentence',
+            sentenceQueryData
+        )
+
+        console.log(insertedData)
+
+        if (error) {
+            console.log(error)
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: error.message }),
+            }
+        }
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ insertedData }),
+        }
+    } catch (error) {
+        console.error('Error handling request:', error)
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Internal Server Error' }),
+        }
     }
 }

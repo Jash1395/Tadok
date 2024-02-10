@@ -101,10 +101,9 @@ export const AnswerButtons = ({
     const { durationCutoff, level } = useStore()
     const startUnixTime = useAnswerTimer(currentSentence)
 
-    const updateLocalStore = (difficulty: Difficulty) => {
+    const updateLocalStore = (difficulty: Difficulty, duration: number) => {
         // console.log(totalTime, sentenceCount, wordList, sentenceHistory)
         if (!currentSentence || !level) return
-        const duration = calcAnswerDuration(startUnixTime, durationCutoff)
         incSentenceCount()
         addTotalTime(duration)
         addWordList(currentSentence.inputs.seedWord.word, difficulty)
@@ -112,14 +111,23 @@ export const AnswerButtons = ({
     }
 
     const handleClick = async (difficulty: Difficulty) => {
-        getNextSentence()
-        if (!currentSentence?.['questionLang']) return
-
-        updateLocalStore(difficulty)
+        const duration = calcAnswerDuration(startUnixTime, durationCutoff)
+        console.log(duration)
         flashAnswer(difficulty)
+        getNextSentence()
+
+        if (!currentSentence?.['questionLang']) {
+            console.error('No sentence')
+            return
+        }
+
+        updateLocalStore(difficulty, duration)
         postAnswerData(
             currentSentence['questionLang'],
-            currentSentence?.inputs.seedWord.word
+            currentSentence.inputs.seedWord.word,
+            currentSentence.inputs.seedWord.definition,
+            difficulty,
+            duration
         )
     }
 

@@ -3,17 +3,22 @@ import { api } from './api'
 
 export async function postAnswerData(
     sentence: string,
-    word: string
+    word: string,
+    definition: string,
+    difficulty: Difficulty,
+    duration: number
 ): Promise<null> {
     const baseURL = '/sentencePOST'
     const data = {
         sentence: sentence,
         word: word,
+        definition: definition,
+        difficulty: difficulty,
+        duration: duration,
     }
 
     try {
-        const response = await api.post<any>(baseURL, data)
-        console.log(response)
+        await api.post<any>(baseURL, data)
         return null
     } catch (error: any) {
         if (axios.isAxiosError(error)) {
