@@ -1,13 +1,15 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { getStatistics } from '../../api/getStatistics'
 import { ShortStats } from './ShortStats.tsx'
 import { TimescaleRadio } from './TimescaleRadio.tsx'
 import { LevelRadio } from './LevelRadio.tsx'
-import { convertToLocalTimeZone } from '../../utils/filterData.ts'
+import { convertToLocalTimeZone, filterData } from '../../utils/filterData.ts'
 import { useStatistics } from '../../hooks/useStatistics.ts'
 import { AllLevelCharts } from './Charts/AllLevelCharts.tsx'
 import { ByLevelCharts } from './Charts/ByLevelCharts.tsx'
+import { prefixSumData } from '../../utils/prefixSumData.ts'
+import { totalSumData } from '../../utils/totalSumData'
 
 const Container = styled.div`
     padding-bottom: 3vw;
@@ -44,7 +46,6 @@ export const Statistics = ({}: Props) => {
     const [timescale, setTimeScale] = useState<Timescale>('Week')
     const [level, setLevel] = useState<Level>('A1')
 
-    // Test data for todayStats in useStatistics()
     const { todayStats, totalStats, filteredTotalData, filteredByLevelData } =
         useStatistics(data, timescale, level)
 
@@ -52,39 +53,49 @@ export const Statistics = ({}: Props) => {
         ;(async () => {
             try {
                 const stats = await getStatistics()
-                if (!stats) throw Error('Error')
-                const convertedStats = convertToLocalTimeZone(stats)
-                setData(convertedStats)
+                if (!stats) throw Error('No stats found')
+                // console.log(stats)
+                // NEED NO CONVERT
+                // const convertedStats = convertToLocalTimeZone(stats)
+                setData(stats)
             } catch (error) {
                 console.error(error)
             }
         })()
     }, [])
 
+    console.log(filteredTotalData)
+
     return (
         <Container>
             <CardContainer>
                 <Text>Today</Text>
-                <ShortStats data={todayStats} />
+                {todayStats ? <ShortStats data={todayStats} /> : null}
                 <Text>Total</Text>
-                <ShortStats data={totalStats} />
+                {totalStats ? <ShortStats data={totalStats} /> : null}
             </CardContainer>
             <Text>Detailed</Text>
-            <TimescaleRadio
-                timescale={timescale}
-                filteredTotalData={filteredTotalData}
-                setTimeScale={setTimeScale}
-            />
-            <AllLevelCharts
-                filteredTotalData={filteredTotalData}
-                timescale={timescale}
-            />
+            {filteredTotalData ? (
+                <TimescaleRadio
+                    timescale={timescale}
+                    filteredTotalData={filteredTotalData}
+                    setTimeScale={setTimeScale}
+                />
+            ) : null}
+            {filteredTotalData ? (
+                <AllLevelCharts
+                    filteredTotalData={filteredTotalData}
+                    timescale={timescale}
+                />
+            ) : null}
             <Text>By Level</Text>
             <LevelRadio level={level} setLevel={setLevel} />
-            <ByLevelCharts
-                filteredByLevelData={filteredByLevelData}
-                timescale={timescale}
-            />
+            {filteredByLevelData ? (
+                <ByLevelCharts
+                    filteredByLevelData={filteredByLevelData}
+                    timescale={timescale}
+                />
+            ) : null}
         </Container>
     )
 }

@@ -14,13 +14,15 @@ const Container = styled.div`
 `
 
 interface Props {
-    data: SummedStats | undefined
+    data: Stat | undefined
 }
 
 export const ShortStats = ({ data }: Props) => {
+    const msInSecond = 1000
     const count = data ? data.count : undefined
     const duration = data ? data.duration : undefined
-    const timePer = count && duration ? count / duration : undefined
+    const timePer =
+        count && duration ? (count / duration) * msInSecond : undefined
 
     return (
         <Container>

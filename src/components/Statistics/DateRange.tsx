@@ -33,12 +33,12 @@ const monthNames: Month[] = [
     'Dec',
 ]
 
-// timerange string must be in format "YYYY/MM/DD..."
 const extractDateParts = (dateString: string): DateParts => {
-    const monthNum = dateString.slice(0, 2)
-    const month = monthNames[parseInt(monthNum, 10) - 1] as Month
-    const day = dateString.slice(3, 5)
-    const year = dateString.slice(6, 10)
+    const date = new Date(dateString)
+    const year = date.getUTCFullYear().toString()
+    const monthNum = date.getUTCMonth()
+    const month = monthNames[monthNum] as Month
+    const day = date.getUTCDate().toString()
 
     return { day, month, year }
 }

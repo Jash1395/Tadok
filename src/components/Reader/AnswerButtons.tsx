@@ -77,6 +77,7 @@ const EasyButton = styled(DifficultyButton)`
 `
 interface Props {
     currentSentence: Sentence | undefined
+    level: Level | null
     isLoading: boolean
     flashAnswer: (difficulty: Difficulty) => void
     getNextSentence: () => void
@@ -84,6 +85,7 @@ interface Props {
 
 export const AnswerButtons = ({
     currentSentence,
+    level,
     isLoading,
     flashAnswer,
     getNextSentence,
@@ -98,7 +100,7 @@ export const AnswerButtons = ({
         addWordList,
         addSentenceHistory,
     } = useStore()
-    const { durationCutoff, level } = useStore()
+    const { durationCutoff } = useStore()
     const startUnixTime = useAnswerTimer(currentSentence)
 
     const updateLocalStore = (difficulty: Difficulty, duration: number) => {
@@ -121,12 +123,18 @@ export const AnswerButtons = ({
             return
         }
 
+        if (!level) {
+            console.error('No level')
+            return
+        }
+
         updateLocalStore(difficulty, duration)
         postAnswerData(
             currentSentence['questionLang'],
             currentSentence.inputs.seedWord.word,
             currentSentence.inputs.seedWord.definition,
             difficulty,
+            level,
             duration
         )
     }

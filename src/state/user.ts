@@ -4,7 +4,7 @@ import { setThemeDocumentRoot } from '../utils/setThemeDocumentRoot'
 
 const userStateStore = (set: SetState, get: GetState): UserState => ({
     // milliseconds
-    durationCutoff: 30000,
+    durationCutoff: 60000,
     level: null,
     theme: 'light',
 

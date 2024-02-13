@@ -130,6 +130,7 @@ export const Reader = ({}: Props) => {
             />
             <AnswerButtons
                 currentSentence={sentenceList[0]}
+                level={level}
                 isLoading={isLoading}
                 flashAnswer={flashAnswer}
                 getNextSentence={goToNextSentence}

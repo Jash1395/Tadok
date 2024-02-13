@@ -25,9 +25,10 @@ interface Props {
 
 export const AllLevelCharts = ({ filteredTotalData, timescale }: Props) => {
     const extractTimeSeriesData = (
+        data,
         type: 'count' | 'duration'
     ): TimeSeriesData => {
-        const timeSeriesData = filteredTotalData.map((item) => ({
+        const timeSeriesData = data.map((item) => ({
             xval: item.date,
             yval: item[type],
         }))
@@ -35,8 +36,11 @@ export const AllLevelCharts = ({ filteredTotalData, timescale }: Props) => {
         return timeSeriesData
     }
 
-    const extractCrossSecData = (type: 'count' | 'duration'): CrossSecData => {
-        const last = filteredTotalData[filteredTotalData.length - 1]
+    const extractCrossSecData = (
+        data,
+        type: 'count' | 'duration'
+    ): CrossSecData => {
+        const last = data[data.length - 1]
 
         const crossSecData: CrossSecData = validLevels.map((level) => ({
             xval: level,
@@ -51,20 +55,36 @@ export const AllLevelCharts = ({ filteredTotalData, timescale }: Props) => {
                 <>
                     <StatCard>
                         <ToggleButton />
-                        <AreaChartGraph data={extractTimeSeriesData('count')} />
                         <AreaChartGraph
-                            data={extractTimeSeriesData('duration')}
+                            data={extractTimeSeriesData(
+                                filteredTotalData,
+                                'count'
+                            )}
+                        />
+                        <AreaChartGraph
+                            data={extractTimeSeriesData(
+                                filteredTotalData,
+                                'duration'
+                            )}
                         />
                     </StatCard>
                 </>
             ) : null}
             <StatCard>
-                <BarChartGraph data={extractCrossSecData('count')} />
-                <BarChartGraph data={extractCrossSecData('duration')} />
+                <BarChartGraph
+                    data={extractCrossSecData(filteredTotalData, 'count')}
+                />
+                <BarChartGraph
+                    data={extractCrossSecData(filteredTotalData, 'duration')}
+                />
             </StatCard>
             <StatCard>
-                <PieChartGraph data={extractCrossSecData('count')} />
-                <PieChartGraph data={extractCrossSecData('duration')} />
+                <PieChartGraph
+                    data={extractCrossSecData(filteredTotalData, 'count')}
+                />
+                <PieChartGraph
+                    data={extractCrossSecData(filteredTotalData, 'duration')}
+                />
             </StatCard>
         </Container>
     )

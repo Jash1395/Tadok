@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { api } from './api'
 
-export async function getStatistics(): Promise<TestStats[]> {
-    const baseURL = '/api/statistics'
+export async function getStatistics(): Promise<Statistics> {
+    const baseURL = 'statisticsGET'
 
     try {
-        const response = await api.get<TestStats[]>(baseURL)
+        const response = await api.get<Statistics>(baseURL)
         return response.data
     } catch (error: any) {
         if (axios.isAxiosError(error)) {

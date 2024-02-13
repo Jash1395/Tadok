@@ -47,21 +47,19 @@ const DecorationText = styled.p`
 `
 
 const formatTimeSpent = (
-    timeSpentTotalSeconds: number
+    timeSpentTotalMs: number
 ): [number, number, number] => {
-    const secondsInDay = 86400
-    const secondsInHour = 3600
-    const secondsInMinute = 60
+    const msInDay = 86400000
+    const msInHour = 3600000
+    const msInMinute = 60000
 
-    const timeSpentDays = Math.floor(timeSpentTotalSeconds / secondsInDay)
-    const remainingSecondsAfterDay = timeSpentTotalSeconds % secondsInDay
+    const timeSpentDays = Math.floor(timeSpentTotalMs / msInDay)
+    const remainingMsAfterDay = timeSpentTotalMs % msInDay
 
-    const timeSpentHours = Math.floor(remainingSecondsAfterDay / secondsInHour)
-    const remainingSecondsAfterHour = remainingSecondsAfterDay % secondsInHour
+    const timeSpentHours = Math.floor(remainingMsAfterDay / msInHour)
+    const remainingMsAfterHour = remainingMsAfterDay % msInHour
 
-    const timeSpentMinutes = Math.floor(
-        remainingSecondsAfterHour / secondsInMinute
-    )
+    const timeSpentMinutes = Math.floor(remainingMsAfterHour / msInMinute)
 
     return [timeSpentDays, timeSpentHours, timeSpentMinutes]
 }

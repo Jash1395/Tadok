@@ -151,6 +151,8 @@ interface TestStats {
     levels: LevelTestStats
 }
 
+type Statistics = TestStats[]
+
 type Diff = {
     [key in Difficulty]: Stat
 } & Stat

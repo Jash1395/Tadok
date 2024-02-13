@@ -6,6 +6,7 @@ export async function postAnswerData(
     word: string,
     definition: string,
     difficulty: Difficulty,
+    level: Level,
     duration: number
 ): Promise<null> {
     const baseURL = '/sentencePOST'
@@ -13,9 +14,12 @@ export async function postAnswerData(
         sentence: sentence,
         word: word,
         definition: definition,
+        level: level,
         difficulty: difficulty,
         duration: duration,
     }
+
+    console.log(data.level)
 
     try {
         await api.post<any>(baseURL, data)

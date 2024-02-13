@@ -1,9 +1,6 @@
-import { createClient } from '@supabase/supabase-js'
+import { createSupabaseClient } from '../statistics/createSupabaseClient'
 
 export const handler = async (event: any) => {
-    const supabaseUrl = process.env['SUPABASE_URL']
-    const supabaseKey = process.env['SUPABASE_KEY']
-
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
@@ -11,38 +8,28 @@ export const handler = async (event: any) => {
         }
     }
 
-    if (!supabaseUrl || !supabaseKey) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                error: 'Supabase credentials are not properly set.',
-            }),
-        }
-    }
-
-    const supabase = createClient(supabaseUrl, supabaseKey, {
-        auth: { persistSession: false },
-    })
-
     try {
-        const data = JSON.parse(event.body)
+        const supabase = createSupabaseClient()
+
+        const sentenceData = JSON.parse(event.body)
 
         const sentenceQueryData = {
-            p_answer_time_ms: data.duration,
-            p_definition: data.definition,
-            p_difficulty_level: data.difficulty,
-            p_sentence: data.sentence,
-            p_word: data.word,
+            p_answer_time_ms: sentenceData.duration,
+            p_definition: sentenceData.definition,
+            p_sentence_level: sentenceData.level,
+            p_answer_difficulty: sentenceData.difficulty,
+            p_sentence: sentenceData.sentence,
+            p_word: sentenceData.word,
         }
 
         console.log(sentenceQueryData)
 
-        const { data: insertedData, error } = await supabase.rpc(
+        const { data, error } = await supabase.rpc(
             'insert_sentence',
             sentenceQueryData
         )
 
-        console.log(insertedData)
+        console.log(data)
 
         if (error) {
             console.log(error)
@@ -54,7 +41,7 @@ export const handler = async (event: any) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ insertedData }),
+            body: JSON.stringify({ data }),
         }
     } catch (error) {
         console.error('Error handling request:', error)

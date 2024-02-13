@@ -1,5 +1,5 @@
 import { validLevels, validDifficulty } from '../typesExported'
-export const prefixSumData = (data: TestStats[]): SummedStats[] => {
+export const prefixSumData = (data: Statistics): SummedStats[] => {
     const initialAgg: SummedStats = {
         date: '',
         count: 0,

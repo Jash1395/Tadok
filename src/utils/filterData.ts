@@ -50,22 +50,26 @@ const filterDataLastYear = (data: SummedStats[]) => {
     return filteredData
 }
 
-export const filterData = (data: SummedStats[], timescale: Timescale) => {
+export const filterData = (
+    data: SummedStats[],
+    timescale: Timescale,
+    todayStats: SummedStats
+) => {
     const timescaleFilteredData = {
         All: (data: SummedStats[]) => data,
         Year: filterDataLastYear,
         Month: filterDataLastMonth,
         Week: filterDataLastWeek,
-        Today: () => [],
+        Today: () => todayStats,
     }[timescale](data)
 
     return timescaleFilteredData
 }
 
 export const convertToLocalTimeZone = (
-    data: TestStats[],
+    data: Statistics,
     timeZone: string = 'Asia/Seoul'
-): TestStats[] => {
+): Statistics => {
     return data.map((item) => {
         const date = new Date(item.date)
         const convertedDate = new Intl.DateTimeFormat('en-US', {
