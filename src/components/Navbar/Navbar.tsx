@@ -3,6 +3,7 @@ import { LevelMenuAnchor } from './LevelMenuAnchor'
 import { ThemeButton } from './ThemeButton'
 import { useValidatedSearchParams } from '../../hooks/useValidatedSearchParams'
 import { WindowNavbar } from './WindowNavbar'
+import { LogoutButton } from './LogoutButton'
 
 const Container = styled.div`
     position: fixed;
@@ -34,6 +35,7 @@ export const Navbar = ({}: Props) => {
 
     return (
         <Container>
+            <LogoutButton />
             <LeftContainer>
                 {level && <LevelMenuAnchor level={level} />}
             </LeftContainer>

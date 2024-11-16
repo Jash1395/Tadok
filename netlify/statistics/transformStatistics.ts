@@ -1,9 +1,13 @@
+// @ts-nocheck
+// TODO
+
 export const transformStatistics = (data: any): Statistics => {
     const result: Statistics = []
 
-    data.forEach((item) => {
+    data.forEach((item: any) => {
         // Ensure item.date is a Date object
         const date = new Date(item.date)
+
         let dateEntry = result.find(
             (entry) => entry.date === date.toISOString()
         )

@@ -4,6 +4,7 @@ import { useAnswerTimer } from '../../hooks/useAnswerTimer'
 import { calcAnswerDuration } from '../../utils/calcAnswerDuration'
 import { postAnswerData } from '../../api/postAnswerData'
 import '../../styles/themes.css'
+import { useAuth } from '../../hooks/useAuth'
 
 const Container = styled.div`
     width: 100%;
@@ -53,7 +54,7 @@ const HardButton = styled(DifficultyButton)`
 `
 
 const OkayButton = styled(DifficultyButton)`
-    flex: 1.7;
+    flex: 2;
     border-bottom: 4px solid #ffd700;
 
     &:active {
@@ -90,7 +91,10 @@ export const AnswerButtons = ({
     flashAnswer,
     getNextSentence,
 }: Props) => {
+    const { user } = useAuth()
+
     const {
+        // TODO
         // totalTime,
         // sentenceCount,
         // sentenceHistory,
@@ -103,6 +107,7 @@ export const AnswerButtons = ({
     const { durationCutoff } = useStore()
     const startUnixTime = useAnswerTimer(currentSentence)
 
+    // TODO check what this is
     const updateLocalStore = (difficulty: Difficulty, duration: number) => {
         // console.log(totalTime, sentenceCount, wordList, sentenceHistory)
         if (!currentSentence || !level) return
@@ -113,8 +118,8 @@ export const AnswerButtons = ({
     }
 
     const handleClick = async (difficulty: Difficulty) => {
+        if (!user) return
         const duration = calcAnswerDuration(startUnixTime, durationCutoff)
-        console.log(duration)
         flashAnswer(difficulty)
         getNextSentence()
 
@@ -129,12 +134,21 @@ export const AnswerButtons = ({
         }
 
         updateLocalStore(difficulty, duration)
+
+        // TODO clean this up and move to the new level
+        const newLevel = () => {
+            if (level === 'A1' || 'A2') return 'beginner'
+            if (level === 'B1' || 'B2') return 'intermediate'
+            if (level === 'C1' || 'C2') return 'advanced'
+            else return 'custom'
+        }
+
         postAnswerData(
-            currentSentence['questionLang'],
+            user.uid,
             currentSentence.inputs.seedWord.word,
             currentSentence.inputs.seedWord.definition,
             difficulty,
-            level,
+            newLevel(),
             duration
         )
     }

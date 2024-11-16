@@ -1,15 +1,18 @@
 import styled from 'styled-components'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { getStatistics } from '../../api/getStatistics'
 import { ShortStats } from './ShortStats.tsx'
 import { TimescaleRadio } from './TimescaleRadio.tsx'
 import { LevelRadio } from './LevelRadio.tsx'
-import { convertToLocalTimeZone, filterData } from '../../utils/filterData.ts'
+// import { convertToLocalTimeZone, filterData } from '../../utils/filterData.ts'
 import { useStatistics } from '../../hooks/useStatistics.ts'
 import { AllLevelCharts } from './Charts/AllLevelCharts.tsx'
 import { ByLevelCharts } from './Charts/ByLevelCharts.tsx'
-import { prefixSumData } from '../../utils/prefixSumData.ts'
-import { totalSumData } from '../../utils/totalSumData'
+// import { prefixSumData } from '../../utils/prefixSumData.ts'
+// import { totalSumData } from '../../utils/totalSumData'
+
+// @ts-nocheck
+// TODO
 
 const Container = styled.div`
     padding-bottom: 3vw;

@@ -46,6 +46,8 @@ export const Reader = ({}: Props) => {
     const [error, setError] = useState<any>(null)
     const { isFlashAnswer, flashAnswer } = useFlashAnswer()
 
+    // console.log(sentenceList.length)
+
     useEffect(() => {
         setSentenceList([])
     }, [level])
@@ -73,6 +75,7 @@ export const Reader = ({}: Props) => {
     const fetchSentences = async (level: Level) => {
         try {
             const sentences = await postOpenAI(level, 'korean', 'english')
+            // console.log(sentences)
             if (!sentences) {
                 throw Error('Failed to fetch sentences.')
             }

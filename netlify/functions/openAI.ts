@@ -1,7 +1,7 @@
 import { Handler } from '@netlify/functions'
-import { performance } from 'perf_hooks'
+// import { performance } from 'perf_hooks'
 import { getChatCompletion } from '../openAI/chatCompletion'
-import { logChatCompletionDetails } from '../openAI/logChatCompletionDetails'
+// import { logChatCompletionDetails } from '../openAI/logChatCompletionDetails'
 import { validateLevel } from '../openAI/validateLevel'
 
 export const handler: Handler = async (event) => {
@@ -12,9 +12,9 @@ export const handler: Handler = async (event) => {
             throw Error('Valid level not specified')
         }
         // call to openAI
-        const startTime = performance.now()
+        // const startTime = performance.now()
         const output = await getChatCompletion(level)
-        const endTime = performance.now()
+        // const endTime = performance.now()
         // logChatCompletionDetails(startTime, endTime, output.chatCompletion)
 
         if (!output.chatCompletion.choices[0]) {

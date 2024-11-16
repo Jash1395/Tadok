@@ -6,6 +6,9 @@ import { validLevels } from '../../../typesExported'
 import { PieChartGraph } from './PieChartGraph'
 import { ToggleButton } from '../../common/ToggleButton'
 
+// @ts-nocheck
+// TODO
+
 const Container = styled.div`
     margin-top: 1.4rem;
     width: 100%;
@@ -25,10 +28,10 @@ interface Props {
 
 export const AllLevelCharts = ({ filteredTotalData, timescale }: Props) => {
     const extractTimeSeriesData = (
-        data,
+        data: any,
         type: 'count' | 'duration'
     ): TimeSeriesData => {
-        const timeSeriesData = data.map((item) => ({
+        const timeSeriesData = data.map((item: any) => ({
             xval: item.date,
             yval: item[type],
         }))
@@ -37,7 +40,7 @@ export const AllLevelCharts = ({ filteredTotalData, timescale }: Props) => {
     }
 
     const extractCrossSecData = (
-        data,
+        data: any,
         type: 'count' | 'duration'
     ): CrossSecData => {
         const last = data[data.length - 1]

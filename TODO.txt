@@ -1,0 +1,97 @@
+*** FEATURES ------------------------------------------------
+-------------------------------------------------------------
+
+CUSTOM WORD LIST (add to browser)
+    Show all words in the list
+    search function
+    Add new word
+    Edit word / definiton
+    Delete word
+
+NOTEBOOK
+    jotting down new words to be added later / easy function for adding a definiton and then sending to custom list
+    CHAT GPT word definion return (like custom gpt) 
+
+BROWSER
+    List of all seen words+definition, seen count, sorted by difficulty(4), answer difficulty count
+    Search function
+
+BAD GENERATION BUTTON
+    add error button (don't save data)
+    reporting word+sentence to DB
+
+STATISTICS
+    do last
+
+GUEST ACCOUNT 
+    warn that no data is saved
+
+
+
+
+*** IMPROVEMENTS --------------------------------------------
+-------------------------------------------------------------
+
+    TOS / PP / password reset flow
+    general UI design + landing page (basic)
+    update difficulty level to beginner, intermediate, advanced, custom
+    Firebase ENV vars
+    favicon
+    save current level in local storage and db, always load the previous level the user used
+    check phone login flow (popup)
+    drag to resize reader
+    
+THEME
+    save in local storage
+    darkmode system settings
+    device setting theme? (default)
+
+*** DATABASE - FIREBASE -------------------------------------
+-------------------------------------------------------------
+
+    [USER] - active level 
+           - [Notebook] |- word
+           - [CUSTOM] |- [WORD_NAME] |- definition, [KNOWN_TIMESTAMP_LIST], [UNKNOWN_TIMESTAMP_LIST]
+
+    stats
+        time spent(duration) per day / week / month / year / total
+        card count per day / week / month / year / total
+            - keep a running tally of the current day, per each level for count and duration
+
+
+CLOUD FUNCTIONS
+    standardize structure / abstract
+    seperate files
+
+PROMPTING
+    send word data from front end to openAI to calc SRS etc
+    make other words in sentence easier, so learning word stands out
+
+
+*** REFACTOR / BUGS -----------------------------------------
+-------------------------------------------------------------
+
+Full responsiveness / accesability check
+
+
+--------------------------------------------------------
+-------------------- POST MVP IDEAS --------------------
+--------------------------------------------------------
+
+TESTING
+    comprehensive testing
+
+FEATURES
+    goal setter / tracker / reminder notifications
+    leaderboards - most consecutive days, most consecutive days with x amount studied (progressive levels)
+    highlight word for translation
+    get chatGPT breakdown of word
+    rigourous placement test ( using random sentences from beginner intermediate hard)
+
+TTS
+    https://platform.openai.com/docs/guides/text-to-speech
+    
+
+IMPROVEMENTS
+    prompt engineering, recursive prompts, self validating promps
+    multiple themes, custom themes

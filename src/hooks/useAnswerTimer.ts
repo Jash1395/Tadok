@@ -5,7 +5,7 @@ export const useAnswerTimer = (currentSentence: Sentence | undefined) => {
 
     useEffect(() => {
         if (!currentSentence) return
-        console.log('resetTimer')
+        // console.log('resetTimer')
         const currentUnixTime = Date.now()
         setStartUnixTime(currentUnixTime)
     }, [currentSentence])

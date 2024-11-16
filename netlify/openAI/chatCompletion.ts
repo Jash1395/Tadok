@@ -12,6 +12,7 @@ const models = {
     m3: 'gpt-3.5-turbo',
     m316: 'gpt-3.5-turbo-16k',
     m4: 'gpt-4',
+    m4o: 'gpt-4o-mini',
 }
 
 const system: ChatCompletionMessageParam = {
@@ -24,7 +25,7 @@ export const getChatCompletion = async (level: Level) => {
     const promptData = buildPrompt(level)
 
     const chatCompletion = await openAI.chat.completions.create({
-        model: models.m3,
+        model: models.m4o,
         messages: [system, promptData.chatCompletionMessageParam],
         functions: [{ name: 'get_sentences', parameters: schema }],
         function_call: { name: 'get_sentences' },
