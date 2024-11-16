@@ -53,7 +53,7 @@ const filterDataLastYear = (data: SummedStats[]) => {
 export const filterData = (
     data: SummedStats[],
     timescale: Timescale,
-    todayStats: SummedStats
+    todayStats: SummedStats | undefined
 ) => {
     const timescaleFilteredData = {
         All: (data: SummedStats[]) => data,

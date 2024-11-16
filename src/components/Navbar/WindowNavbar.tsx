@@ -14,7 +14,10 @@ export const WindowNavbar = ({}: Props) => {
     return (
         <Container>
             <WindowNavbarIcon type="reader" />
-            <WindowNavbarIcon type="statistics" />
+
+            {/* <WindowNavbarIcon type="statistics" /> 
+            TODO  removed for now
+            */}
             <WindowNavbarIcon type="browser" />
         </Container>
     )

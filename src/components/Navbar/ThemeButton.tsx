@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { httpsCallable } from 'firebase/functions'
 import { getFunctions } from 'firebase/functions'
-import { getAuth } from 'firebase/auth'
 import { Classic } from '@theme-toggles/react'
 import { useStore } from '../../hooks/useStore'
 import '@theme-toggles/react/css/Classic.css'
@@ -53,6 +52,9 @@ export const ThemeButton = ({}: Props) => {
             toggled={theme === 'dark'}
             onToggle={handleOnToggle}
             $color={color}
+            placeholder="Button placeholder" // TODO
+            onPointerEnterCapture={() => console.log('Pointer entered')} // TODO
+            onPointerLeaveCapture={() => console.log('Pointer left')} // TODO
         />
     )
 }

@@ -17,8 +17,8 @@ const firebaseConfig = {
 export const loginUIConfig = {
     callbacks: {
         signInSuccessWithAuthResult: function (
-            authResult: any,
-            redirectUrl: string
+            authResult: any
+            // redirectUrl: string
         ) {
             // User successfully signed in.
             // Return type determines whether we continue the redirect automatically

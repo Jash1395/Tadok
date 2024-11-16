@@ -4,7 +4,7 @@ import { ErrorPage } from '../routes/ErrorPage.tsx'
 import { Navbar } from '../components/Navbar/Navbar.tsx'
 import { Reader } from '../components/Reader/Reader'
 import { Window } from '../components/Window.tsx'
-import { Statistics } from '../components/Statistics/Statistics.tsx'
+// import { Statistics } from '../components/Statistics/Statistics.tsx'
 import { Login } from '../components/Login.tsx'
 import { useAuth } from '../hooks/useAuth.ts'
 
@@ -24,10 +24,11 @@ const _Reader: RouteObject = {
     element: <PrivateRoute element={<Reader />} />,
 }
 
-const _Statistics: RouteObject = {
-    path: 'statistics',
-    element: <PrivateRoute element={<Statistics />} />,
-}
+// TODO
+// const _Statistics: RouteObject = {
+//     path: 'statistics',
+//     element: <PrivateRoute element={<Statistics />} />,
+// }
 
 const _Browser: RouteObject = {
     path: 'browser',
@@ -51,7 +52,12 @@ const Root: RouteObject = {
         {
             path: '/',
             element: <Window />,
-            children: [_Reader, _Statistics, _Browser],
+            children: [
+                _Reader,
+                // TODO
+                // _Statistics,
+                _Browser,
+            ],
             errorElement: <ErrorPage />,
         },
         {
