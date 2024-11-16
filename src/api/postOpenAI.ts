@@ -16,6 +16,7 @@ export async function postOpenAI(
 
     try {
         const response = await api.get<any>(baseURL + params)
+        console.log('test ', response)
         const sentences = JSON.parse(response.data.message).sentences
         const inputs = JSON.parse(response.data.inputs)
 
@@ -41,7 +42,7 @@ export async function postOpenAI(
         } else {
             // non-Axios error (e.g., network error)
             throw {
-                message: 'Error: ' + error.message,
+                message: 'Error-NA: ' + error.message,
             }
         }
     }
