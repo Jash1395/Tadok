@@ -10,9 +10,11 @@ import { useFlashAnswer } from '../../hooks/useFlashAnswer'
 import { LevelSelectMenu } from './LevelSelectMenu'
 
 const Container = styled.div`
+    padding: 1rem 0;
+    box-sizing: border-box;
     flex: 1;
     width: 100%;
-    height: 100%;
+    max-height: 90%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -21,7 +23,7 @@ const Container = styled.div`
         border-radius: 1rem;
         box-shadow: 0px 0px 50px -10px #60606045;
         max-width: 450px;
-        max-height: 42rem;
+        /* max-height: 42rem; */
         overflow: hidden;
     }
 `
@@ -32,6 +34,7 @@ const CardContainer = styled.div`
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
+    gap: 1rem;
 `
 
 interface Props {}

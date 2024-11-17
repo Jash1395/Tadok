@@ -17,9 +17,10 @@ const flashAnimation = (color: string) => keyframes`
 const Container = styled.div<{
     $flashColor: string | false
 }>`
+    flex: 1;
     padding: 1rem;
     width: calc(92% - 2rem);
-    height: 12rem;
+    max-height: 12rem;
     background-color: var(--card-bg);
     border-radius: 0.7rem;
     box-shadow: 3px 3px 10px -2px #6060607d;

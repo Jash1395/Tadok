@@ -2,9 +2,10 @@ import styled from 'styled-components'
 import '../../styles/themes.css'
 
 const Container = styled.div<{ $visibility: string; $text: string }>`
+    flex: 1;
     padding: 1rem;
     width: calc(92% - 2rem);
-    height: 12rem;
+    max-height: 12rem;
     background-color: var(--card-bg);
     color: var(--card-text);
     border-radius: 0.7rem;
